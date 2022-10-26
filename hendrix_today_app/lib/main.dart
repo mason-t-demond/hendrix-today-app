@@ -49,10 +49,10 @@ class _MyHomePageState extends State<MyHomePage> {
       ),body: ListView(
         children: <Widget>[
           ListTile(
-            title: Text('Theme'),
+            title: Text('Event Title'),
             onTap: () {
               AlertDialog alert = AlertDialog(
-                title: Text('Event Here'),
+                title: Text('Event Title Here'),
                 content: Column(
                   children: [
                     Text("Event description here")
