@@ -73,11 +73,14 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
       child: ListView(
         children: <Widget>[
           ListTile(
-            title: Text('Theme'),
+            title: Text('Event Title'),
             onTap: () {
               AlertDialog alert = AlertDialog(
                 title: Text('Event Here'),
-                content: Column(children: [Text("Event description here")]),
+                content: Column(
+                  children: [
+                    Text("Event description here")
+                  ]),
               );
               showDialog(
                 context: context,
