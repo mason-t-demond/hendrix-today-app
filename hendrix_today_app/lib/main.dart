@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hendrix_today_app/home_screen';
-import 'package:hendrix_today_app/calendar_screen';
-import 'package:hendrix_today_app/search_screen';
+import 'package:hendrix_today_app/home_screen.dart';
+import 'package:hendrix_today_app/calendar_screen.dart';
+import 'package:hendrix_today_app/search_screen.dart';
 
 void main() {
   runApp(const MaterialApp(home: ScreenContainer()));
@@ -69,5 +69,59 @@ class _ScreenContainerState extends State<ScreenContainer> {
               ),
               label: "Search")
         ], currentIndex: selectedIndex, onTap: onItemTapped));
+  }
+}
+
+class MyHomeScreen extends StatefulWidget {
+  const MyHomeScreen({super.key});
+
+  @override
+  State<MyHomeScreen> createState() => _MyHomeScreenState();
+}
+
+class _MyHomeScreenState extends State<MyHomeScreen> {
+  @override
+  Widget build(BuildContext context) {
+
+    return Center(
+      child: ListView(
+        children: <Widget>[
+          ListTile(
+            title: Text('Event Title'),
+            onTap: () {
+              AlertDialog alert = AlertDialog(
+                title: Text('Event Here'),
+                content: Column(
+                  children: [
+                    Text("Event description here")
+                  ]),
+              );
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return alert;
+                },
+              );
+            },
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class TBDScreen extends StatefulWidget {
+  const TBDScreen({super.key});
+
+  @override
+  State<TBDScreen> createState() => _TBDScreenState();
+}
+
+class _TBDScreenState extends State<TBDScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('Hello World'),
+    );
   }
 }

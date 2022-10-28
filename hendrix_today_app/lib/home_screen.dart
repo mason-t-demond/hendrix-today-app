@@ -20,11 +20,28 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
       child: ListView(
         children: <Widget>[
           ListTile(
-            title: Text('HDX Today'),
+            title: Text(''),
             onTap: () {
               AlertDialog alert = AlertDialog(
-                title: Text('Event Here'),
-                content: Column(children: [Text("Event description here")]),
+                title: Text('Literature and Language over Lunch'),
+                content: Column(children: [Text("With Mel White, '72 in the Murphy Seminar Room from 12pm-1pm")]),
+              );
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return alert;
+                },
+              );
+            },
+          ),
+          ListTile(
+            title: Text('Ghost Roast'),
+            onTap: () {
+              AlertDialog alert = AlertDialog(
+                title: Text('Ghost Roast'),
+                content: Column(
+                  children: [
+                    Text("Takes place in Worsham from 10pm to 1am, the SLTC entrance facing Couch will be used.")]),
               );
               showDialog(
                 context: context,
