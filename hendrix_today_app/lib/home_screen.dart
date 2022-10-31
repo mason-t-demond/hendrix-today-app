@@ -13,6 +13,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
     return Center(
       child: ListView(
         children: <Widget>[
+          Image.asset('assets/banner.png'),
           Card(
               elevation: 6.0,
               child: ListTile(
