@@ -18,7 +18,6 @@ class _ScreenContainerState extends State<ScreenContainer> {
   int selectedIndex = 0;
   List<Widget> pages = []; //contains each page
   List<String> titles = []; //contains the title of each page
-  final Color webOrange = const Color.fromARGB(255, 202, 81, 39);
 
   @override
   void initState() {

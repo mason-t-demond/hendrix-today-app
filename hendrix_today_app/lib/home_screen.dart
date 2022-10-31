@@ -20,11 +20,14 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
       child: ListView(
         children: <Widget>[
           ListTile(
-            title: Text(''),
+            title: Text('Farewell to Dean Wiltgen'),
             onTap: () {
               AlertDialog alert = AlertDialog(
-                title: Text('Literature and Language over Lunch'),
-                content: Column(children: [Text("With Mel White, '72 in the Murphy Seminar Room from 12pm-1pm")]),
+                title: Text('Farewell to Dean Wiltgen'),
+                content: Column(children: [
+                  Text(
+                      "You are invited to drop by the SLTC Student Services Suite today from 2-4 p.m. to say farewell to Dean Wiltgen. There will be refreshments while they last!")
+                ]),
               );
               showDialog(
                 context: context,
@@ -35,13 +38,14 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
             },
           ),
           ListTile(
-            title: Text('Ghost Roast'),
+            title: Text('NATIONAL FRENCH WEEK - Crêpe Extravaganza!'),
             onTap: () {
               AlertDialog alert = AlertDialog(
-                title: Text('Ghost Roast'),
-                content: Column(
-                  children: [
-                    Text("Takes place in Worsham from 10pm to 1am, the SLTC entrance facing Couch will be used.")]),
+                title: Text('NATIONAL FRENCH WEEK - Crêpe Extravaganza!'),
+                content: Column(children: [
+                  Text(
+                      "Come out to the SLTC Kitchen today from 4-5 p.m. and help kick off National French Week at our Crêpe extravaganza! All are welcome! Be sure to check out all of the festivities planned this week.")
+                ]),
               );
               showDialog(
                 context: context,
