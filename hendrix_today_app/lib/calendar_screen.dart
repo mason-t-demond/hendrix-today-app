@@ -8,6 +8,8 @@ class EventCalendar extends StatefulWidget {
   State<EventCalendar> createState() => _EventCalendarState();
 }
 
+//creation of the TableCalendar
+//code obtained from TableCalendar repo: https://github.com/aleksanderwozniak/table_calendar
 class _EventCalendarState extends State<EventCalendar> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
@@ -16,8 +18,8 @@ class _EventCalendarState extends State<EventCalendar> {
   @override
   Widget build(BuildContext context) {
     return TableCalendar(
-      firstDay: kFirstDay,
-      lastDay: kLastDay,
+      firstDay: calendarStartDate,
+      lastDay: calendarEndDate,
       focusedDay: _focusedDay,
       calendarFormat: _calendarFormat,
       selectedDayPredicate: (day) {
@@ -53,6 +55,7 @@ class _EventCalendarState extends State<EventCalendar> {
   }
 }
 
+//creates calendar page in app
 class CalendarScreen extends StatefulWidget {
   const CalendarScreen({super.key});
 
@@ -67,6 +70,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
   }
 }
 
-final kToday = DateTime.now();
-final kFirstDay = DateTime(kToday.year, kToday.month - 3, kToday.day);
-final kLastDay = DateTime(kToday.year, kToday.month + 3, kToday.day);
+//stores calendar bounds
+final calendarRoot = DateTime.now();
+final calendarStartDate =
+    DateTime(calendarRoot.year, calendarRoot.month - 3, calendarRoot.day);
+final calendarEndDate =
+    DateTime(calendarRoot.year, calendarRoot.month + 3, calendarRoot.day);
