@@ -13,7 +13,8 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
     return Center(
       child: ListView(
         children: <Widget>[
-          Card(child:ListTile(
+          Card(
+              child: ListTile(
             title: Text('Farewell to Dean Wiltgen'),
             subtitle: Text('October 31st, 2-4pm'),
             onTap: () {
@@ -31,9 +32,9 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                 },
               );
             },
-          )
-          ),
-          Card(child: ListTile(
+          )),
+          Card(
+              child: ListTile(
             title: Text('NATIONAL FRENCH WEEK - Crêpe Extravaganza!'),
             subtitle: Text('October 31st, 4-5pm'),
             onTap: () {
@@ -51,8 +52,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                 },
               );
             },
-          )
-          )
+          ))
         ],
       ),
     );
