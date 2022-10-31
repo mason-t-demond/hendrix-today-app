@@ -10,17 +10,12 @@ class MyHomeScreen extends StatefulWidget {
 class _MyHomeScreenState extends State<MyHomeScreen> {
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Center(
       child: ListView(
         children: <Widget>[
-          ListTile(
+          Card(child:ListTile(
             title: Text('Farewell to Dean Wiltgen'),
+            subtitle: Text('October 31st, 2-4pm'),
             onTap: () {
               AlertDialog alert = AlertDialog(
                 title: Text('Farewell to Dean Wiltgen'),
@@ -36,9 +31,11 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                 },
               );
             },
+          )
           ),
-          ListTile(
+          Card(child: ListTile(
             title: Text('NATIONAL FRENCH WEEK - Crêpe Extravaganza!'),
+            subtitle: Text('October 31st, 4-5pm'),
             onTap: () {
               AlertDialog alert = AlertDialog(
                 title: Text('NATIONAL FRENCH WEEK - Crêpe Extravaganza!'),
@@ -54,6 +51,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                 },
               );
             },
+          )
           )
         ],
       ),
