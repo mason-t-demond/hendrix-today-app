@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+//https://pub.dev/packages/anim_search_bar/example
+import 'package:anim_search_bar/anim_search_bar.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -7,11 +9,29 @@ class SearchScreen extends StatefulWidget {
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
+//search screen needs search bar
+//Search bar requires keyboard access and related stuff
+//search needs to display relevant events in ToDoList/listTile form
 class _SearchScreenState extends State<SearchScreen> {
+  Color webOrange = const Color.fromARGB(255, 202, 81, 39);
+  TextEditingController textController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Search'),
+    return Scaffold(
+      //padding: const EdgeInsets.only(right: 10, left: 10),
+
+      /// In AnimSearchBar widget, the width, textController, onSuffixTap are required properties.
+      /// You have also control over the suffixIcon, prefixIcon, helpText and animationDurationInMilli
+      body: AnimSearchBar(
+        width: 400,
+        textController: textController,
+        onSuffixTap: () {
+          setState(() {
+            textController.clear();
+          });
+        },
+      ),
     );
   }
 }
