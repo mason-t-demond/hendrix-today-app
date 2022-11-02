@@ -14,6 +14,25 @@ class _EventCalendarState extends State<EventCalendar> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
+  late DateTime calendarStartDate;
+  late DateTime calendarEndDate;
+
+  @override
+  void initState() {
+    super.initState();
+    final calendarRoot = DateTime.now();
+    if (calendarRoot.month >= 1 && calendarRoot.month <= 6) {
+      calendarStartDate =
+          DateTime(calendarRoot.year, DateTime.january, calendarRoot.day);
+      calendarEndDate =
+          DateTime(calendarRoot.year, DateTime.june, calendarRoot.day);
+    } else {
+      calendarStartDate =
+          DateTime(calendarRoot.year, DateTime.july, calendarRoot.day);
+      calendarEndDate =
+          DateTime(calendarRoot.year, DateTime.december, calendarRoot.day);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,10 +88,3 @@ class _CalendarScreenState extends State<CalendarScreen> {
     return const Center(child: EventCalendar());
   }
 }
-
-//stores calendar bounds
-final calendarRoot = DateTime.now();
-final calendarStartDate =
-    DateTime(calendarRoot.year, calendarRoot.month - 3, calendarRoot.day);
-final calendarEndDate =
-    DateTime(calendarRoot.year, calendarRoot.month + 3, calendarRoot.day);
