@@ -18,24 +18,13 @@ class _EventCalendarState extends State<EventCalendar> {
   late DateTime calendarEndDate;
 
   @override
-  void initState() {
-    super.initState();
-    final calendarRoot = DateTime.now();
-    if (calendarRoot.month >= 1 && calendarRoot.month <= 6) {
-      calendarStartDate =
-          DateTime(calendarRoot.year, DateTime.january, calendarRoot.day);
-      calendarEndDate =
-          DateTime(calendarRoot.year, DateTime.june, calendarRoot.day);
-    } else {
-      calendarStartDate =
-          DateTime(calendarRoot.year, DateTime.july, calendarRoot.day);
-      calendarEndDate =
-          DateTime(calendarRoot.year, DateTime.december, calendarRoot.day);
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final calendarRoot = DateTime.now();
+    final calendarStartDate =
+        DateTime(calendarRoot.year, calendarRoot.month - 6, calendarRoot.day);
+    final calendarEndDate =
+        DateTime(calendarRoot.year, calendarRoot.month + 6, calendarRoot.day);
+
     return TableCalendar(
       firstDay: calendarStartDate,
       lastDay: calendarEndDate,
