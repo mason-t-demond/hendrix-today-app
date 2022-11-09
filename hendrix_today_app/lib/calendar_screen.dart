@@ -19,6 +19,7 @@ class _EventCalendarState extends State<EventCalendar> {
 
   @override
   Widget build(BuildContext context) {
+    //sets the bounds for the calendar at 6 months before and after the current date
     final calendarRoot = DateTime.now();
     final calendarStartDate =
         DateTime(calendarRoot.year, calendarRoot.month - 6, calendarRoot.day);
