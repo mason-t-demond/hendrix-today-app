@@ -13,7 +13,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
     return Center(
       child: ListView(
         children: <Widget>[
-          Image.asset('assets/banner.png', key: const Key("Banner")),
+          Image.asset('assets/webOrange_banner.png', key: const Key("Banner")),
           Card(
               elevation: 6.0,
               child: ListTile(
