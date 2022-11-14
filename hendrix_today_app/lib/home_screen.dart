@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+var daily_events_list;
+var daily_announcements_list;
+var daily_meetings_list;
+
 class MyHomeScreen extends StatefulWidget {
   const MyHomeScreen({super.key});
 
@@ -11,8 +15,10 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: ListView(
-        children: <Widget>[
+      child: Column(
+        children:[ListView(
+          key: daily_events_list,
+          children: <Widget>[
           Image.asset('assets/webOrange_banner.png', key: const Key("Banner")),
           Card(
               elevation: 6.0,
@@ -61,6 +67,8 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
           )
         ],
       ),
+    ],
+    )
     );
   }
 }
