@@ -102,11 +102,25 @@ class _EventCalendarState extends State<EventCalendar> {
                       border: Border.all(),
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: ListTile(
-                      onTap: () => print('${value[index]}'),
+                    child: Card(child: ListTile(
+                      onTap: () {AlertDialog alert = AlertDialog(
+                    title: Text('${value[index]}'),
+                    insetPadding: EdgeInsets.symmetric(vertical: 200, horizontal: 50),
+                    content: Column(children: [
+                      Text(
+                          "description parsed here")
+                    ]),
+                  );
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return alert;
+                    },
+                  );
+                },
                       title: Text('${value[index]}'),
                     ),
-                  );
+                  ));
                 },
               );
             },
