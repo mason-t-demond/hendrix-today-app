@@ -31,7 +31,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
       "Hendrix Today",
       "HDX Calendar",
       "Search"
-    ]; //Stores Page Titles for Bottom Nav
+    ]; //Stores Page Titles for AppBar
   }
 
   void onItemTapped(int index) {
