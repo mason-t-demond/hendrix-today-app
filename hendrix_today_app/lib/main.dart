@@ -61,6 +61,13 @@ class _ScreenContainerState extends State<ScreenContainer> {
     appBar: AppBar(
             backgroundColor: webOrange, title: Text(titles[selectedIndex])),
         body: Center(child: pages[selectedIndex]),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: webOrange,
+          child: Icon(Icons.login),
+          onPressed: () {
+          Navigator.pushNamed(context, "/sign-in");
+          //Navigator.of(context).pushNamed('/signin');
+        },),
         bottomNavigationBar:
             BottomNavigationBar(items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -102,12 +109,12 @@ class rootApp extends StatelessWidget{
 
     return MaterialApp(
       //Start adding here
+
       initialRoute: '/home',
       routes: {
         '/home': (context) {
-          return const ScreenContainer();
+          return Consumer<ApplicationState>(builder: (context, appState, _)=> const ScreenContainer());
         },
-
         '/sign-in': ((context) {
           return SignInScreen(
             actions: [
@@ -154,6 +161,8 @@ class rootApp extends StatelessWidget{
             actions: [
               SignedOutAction(
                 ((context) {
+                  //Navigator.of(context).pushNamedAndRemoveUntil("/home", (r) => false)
+                  //to get rid of all previous pathing and return to the original route
                   Navigator.of(context).pushReplacementNamed('/home');
                 }),
               ),
@@ -164,6 +173,22 @@ class rootApp extends StatelessWidget{
   );
   }
   }
+class Router{
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    switch (settings.name) {
+      case '/home':
+        return MaterialPageRoute(builder: (_) => ScreenContainer());
+      case '/signin':
+        return MaterialPageRoute(builder: (_) => SignInScreen());
+      default:
+        return MaterialPageRoute(
+            builder: (_) => Scaffold(
+                  body: Center(
+                      child: Text('No route defined for ${settings.name}')),
+                ));
+    }
+  }
+}
 
 class ApplicationState extends ChangeNotifier {
   ApplicationState() {
