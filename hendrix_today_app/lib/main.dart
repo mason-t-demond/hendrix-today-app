@@ -59,7 +59,10 @@ class _ScreenContainerState extends State<ScreenContainer> {
   Widget build(BuildContext context) {
     return Scaffold(
     appBar: AppBar(
-            backgroundColor: webOrange, title: Text(titles[selectedIndex])),
+            backgroundColor: webOrange, title: Text(titles[selectedIndex]),
+            leading: IconButton(onPressed: (){
+              Navigator.pushNamed(context, "/profile");
+            }, icon: Icon(Icons.account_circle))),
         body: Center(child: pages[selectedIndex]),
         floatingActionButton: FloatingActionButton(
           backgroundColor: webOrange,
@@ -101,13 +104,16 @@ class _ScreenContainerState extends State<ScreenContainer> {
   }
 }
 class rootApp extends StatelessWidget{
+  
   const rootApp({super.key});
+  final Color webOrange = const Color.fromARGB(255, 202, 81, 39);
 
 
   @override
   Widget build(BuildContext context) {
 
     return MaterialApp(
+      theme: ThemeData(backgroundColor: webOrange),
       //Start adding here
 
       initialRoute: '/home',
