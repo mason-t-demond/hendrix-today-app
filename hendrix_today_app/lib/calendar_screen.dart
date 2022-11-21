@@ -90,38 +90,42 @@ class _EventCalendarState extends State<EventCalendar> {
           child: ValueListenableBuilder<List<Event>>(
             valueListenable: _selectedEvents,
             builder: (context, value, _) {
-              return ListView.builder(
-                itemCount: value.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Card(child: ListTile(
-                      onTap: () {AlertDialog alert = AlertDialog(
-                    title: Text('${value[index]}'),
-                    insetPadding: EdgeInsets.symmetric(vertical: 200, horizontal: 50),
-                    content: Column(children: [
-                      Text(
-                          "description parsed here")
-                    ]),
-                  );
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return alert;
-                    },
-                  );
-                },
+              return SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: ListView.builder(
+                  itemCount: value.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Card(child: ListTile(
+                        onTap: () {AlertDialog alert = AlertDialog(
                       title: Text('${value[index]}'),
-                    ),
-                  ));
-                },
+                      insetPadding: EdgeInsets.symmetric(vertical: 200, horizontal: 50),
+                      content: Column(children: [
+                        Text(
+                            "description parsed here")
+                      ]),
+                    );
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return alert;
+                      },
+                    );
+                  },
+                        title: Text('${value[index]}'),
+                      ),
+                    ));
+                  },
+                ),
               );
             },
           ),

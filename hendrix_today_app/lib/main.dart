@@ -12,14 +12,22 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';                 // new
 
-import 'firebase_options.dart';                          // new
 //import 'src/authentication.dart';                        // new
 //import 'src/widgets.dart';
 
+//Teddy is our savior for firebase
 
 void main() {
-  runApp(const MaterialApp(home: ScreenContainer()));
+  // Modify from here...
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(ChangeNotifierProvider(
+    create: (context) => ApplicationState(),
+    builder: ((context, child) => const rootApp()),
+  ));
+  // ...to here.
 }
+
 
 class ScreenContainer extends StatefulWidget {
   const ScreenContainer({super.key});
@@ -29,6 +37,7 @@ class ScreenContainer extends StatefulWidget {
 }
 
 class _ScreenContainerState extends State<ScreenContainer> {
+  Color webOrange = const Color.fromARGB(255, 202, 81, 39);
   int selectedIndex = 0;
   List<Widget> pages = []; //contains each page
   List<String> titles = []; //contains the title of each page
@@ -45,20 +54,11 @@ class _ScreenContainerState extends State<ScreenContainer> {
       "Hendrix Today",
       "HDX Calendar",
       "Search"
-    ]; //Stores Page Titles for AppBar
-  }
-
-  void onItemTapped(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
-
-  @override
+    ];}
+    @override
   Widget build(BuildContext context) {
-    Color webOrange = const Color.fromARGB(255, 202, 81, 39);
     return Scaffold(
-        appBar: AppBar(
+    appBar: AppBar(
             backgroundColor: webOrange, title: Text(titles[selectedIndex])),
         body: Center(child: pages[selectedIndex]),
         bottomNavigationBar:
@@ -83,7 +83,88 @@ class _ScreenContainerState extends State<ScreenContainer> {
               label: "Search")
         ], currentIndex: selectedIndex, onTap: onItemTapped));
   }
+  
+     //Stores Page Titles for AppBar
+    
+
+  void onItemTapped(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
 }
+class rootApp extends StatelessWidget{
+  const rootApp({super.key});
+
+
+  @override
+  Widget build(BuildContext context) {
+
+    return MaterialApp(
+      //Start adding here
+      initialRoute: '/home',
+      routes: {
+        '/home': (context) {
+          return const ScreenContainer();
+        },
+
+        '/sign-in': ((context) {
+          return SignInScreen(
+            actions: [
+              ForgotPasswordAction(((context, email) {
+                Navigator.of(context)
+                    .pushNamed('/forgot-password', arguments: {'email': email});
+              })),
+              AuthStateChangeAction(((context, state) {
+                if (state is SignedIn || state is UserCreated) {
+                  var user = (state is SignedIn)
+                      ? state.user
+                      : (state as UserCreated).credential.user;
+                  if (user == null) {
+                    return;
+                  }
+                  if (state is UserCreated) {
+                    user.updateDisplayName(user.email!.split('@')[0]);
+                  }
+                  if (!user.emailVerified) {
+                    user.sendEmailVerification();
+                    const snackBar = SnackBar(
+                        content: Text(
+                            'Please check your email to verify your email address'));
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
+                  Navigator.of(context).pushReplacementNamed('/home');
+                }
+              })),
+            ],
+          );
+        }),
+        '/forgot-password': ((context) {
+          final arguments = ModalRoute.of(context)?.settings.arguments
+              as Map<String, dynamic>?;
+
+          return ForgotPasswordScreen(
+            email: arguments?['email'] as String,
+            headerMaxExtent: 200,
+          );
+        }),
+        '/profile': ((context) {
+          return ProfileScreen(
+            providers: [],
+            actions: [
+              SignedOutAction(
+                ((context) {
+                  Navigator.of(context).pushReplacementNamed('/home');
+                }),
+              ),
+            ],
+          );
+        })
+      },
+  );
+  }
+  }
+
 class ApplicationState extends ChangeNotifier {
   ApplicationState() {
     init();
