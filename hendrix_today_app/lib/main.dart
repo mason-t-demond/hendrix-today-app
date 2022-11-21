@@ -61,16 +61,9 @@ class _ScreenContainerState extends State<ScreenContainer> {
     appBar: AppBar(
             backgroundColor: webOrange, title: Text(titles[selectedIndex]),
             leading: IconButton(onPressed: (){
-              Navigator.pushNamed(context, "/profile");
+              Navigator.pushNamed(context, "/sign-in");
             }, icon: Icon(Icons.account_circle))),
         body: Center(child: pages[selectedIndex]),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: webOrange,
-          child: Icon(Icons.login),
-          onPressed: () {
-          Navigator.pushNamed(context, "/sign-in");
-          //Navigator.of(context).pushNamed('/signin');
-        },),
         bottomNavigationBar:
             BottomNavigationBar(items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
