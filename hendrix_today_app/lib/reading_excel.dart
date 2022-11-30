@@ -1,5 +1,4 @@
 import 'dart:ffi';
-import 'dart:html';
 
 import 'event.dart';
 import 'event_items.dart';
