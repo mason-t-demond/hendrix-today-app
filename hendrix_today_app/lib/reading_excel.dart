@@ -78,18 +78,50 @@ Future fileParsing() async {
   //get titles
   final List<Cell> getTitles =
       await sheet.cells.column(5, fromRow: 2, length: ss.sheets.length);
+  //loops through specified list and turns to list of strings
+  List<String> getEventTitles() {
+    List<String> l = [];
+    for (int i = 0; i < getTitles.length; i++) {
+      l.add(getTitles[i].value);
+    }
+    return l;
+  }
 
   //get description
   final List<Cell> getDesc =
       await sheet.cells.column(12, fromRow: 2, length: ss.sheets.length);
+  //loops through specified list and turns to list of strings
+  List<String> getEventDesc() {
+    List<String> l = [];
+    for (int i = 0; i < getDesc.length; i++) {
+      l.add(getDesc[i].value);
+    }
+    return l;
+  }
 
   //get event dates
   final List<Cell> getEDates =
       await sheet.cells.column(9, fromRow: 2, length: ss.sheets.length);
+  //loops through specified list and turns to list of strings
+  List<String> getEventDates() {
+    List<String> l = [];
+    for (int i = 0; i < getEDates.length; i++) {
+      l.add(getEDates[i].value);
+    }
+    return l;
+  }
 
   //get item type (event, announcement, etc)
   final List<Cell> getType =
       await sheet.cells.column(8, fromRow: 2, length: ss.sheets.length);
+  //loops through specified list and turns to list of strings
+  List<String> getEventType() {
+    List<String> l = [];
+    for (int i = 0; i < getType.length; i++) {
+      l.add(getType[i].value);
+    }
+    return l;
+  }
 
   //loops through list of cells and converts to list of strings
   List<String> cellToString(cellList) {
