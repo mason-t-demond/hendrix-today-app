@@ -15,8 +15,6 @@ import 'package:provider/provider.dart';                 // new
 
 //Teddy is our savior for firebase
 
-String dropdownValue = "events";
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -56,7 +54,8 @@ class _ScreenContainerState extends State<ScreenContainer> {
     ];}
     @override
   Widget build(BuildContext context) {
-    return Scaffold(
+     String dropdownValue = "events";
+    return Scaffold(  
     appBar: AppBar(
             backgroundColor: webOrange, title: Text(titles[selectedIndex]),
             leading: IconButton(onPressed: (){
@@ -64,12 +63,12 @@ class _ScreenContainerState extends State<ScreenContainer> {
             }, icon: Icon(Icons.account_circle)),
             actions: [
                DropdownButton<String>(
-              isExpanded: true,
+              //isExpanded: true,
               value: dropdownValue, 
-              items: <String>["events" "announcements" "meetings"]
+              items: <String>["events", "announcements", "meetings"]
               .map<DropdownMenuItem<String>>((String value){
                 return DropdownMenuItem<String>(
-                  value:value,
+                  value: value,
                 child: Text(value)
                 );
               }).toList(), 
@@ -77,8 +76,10 @@ class _ScreenContainerState extends State<ScreenContainer> {
                 setState(() {
                   dropdownValue = newValue!;
                 });
-              }),
+              }
+              ),
             ],
+            
             ),
         body: Center(child: pages[selectedIndex]),
         bottomNavigationBar:
