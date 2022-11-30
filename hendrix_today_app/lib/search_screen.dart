@@ -1,6 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-//https://pub.dev/packages/anim_search_bar/example
+//I found the search bar here: https://pub.dev/packages/anim_search_bar/example
 import 'package:anim_search_bar/anim_search_bar.dart';
+import 'main.dart';
+import 'event.dart';
+import 'event_items.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
