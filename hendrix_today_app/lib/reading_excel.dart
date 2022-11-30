@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'dart:html';
 
 import 'event.dart';
 import 'event_items.dart';
@@ -38,7 +39,7 @@ const _credentials = r'''
 /// https://docs.google.com/spreadsheets/d/1TYgcaoitANxOjMOduk5iRqTIvebWw2kT/edit?usp=sharing&ouid=100579109515815935973&rtpof=true&sd=true
 const _spreadsheetId = '1TYgcaoitANxOjMOduk5iRqTIvebWw2kT';
 
-void fileParsing() async {
+Future fileParsing() async {
   // init GSheets
   final gsheets = GSheets(_credentials);
   // fetch spreadsheet by its id
@@ -59,13 +60,13 @@ void fileParsing() async {
 
   // get first row as List of Cell objects
   //ie get headers
-  final firstRow = await sheet!.cells.row(1);
-  print(firstRow);
+  //final firstRow = await sheet!.cells.row(1);
+  //print(firstRow);
 
   // get cell at 'B2' as Cell object
-  final cell = await sheet.cells.cell(column: 2, row: 2);
+  //final cell = await sheet.cells.cell(column: 2, row: 2);
   // prints 'new'
-  print(cell.value);
+  //print(cell.value);
 
   //get sheet headers
   final headers = await await sheet!.cells.row(1);
@@ -89,6 +90,31 @@ void fileParsing() async {
   //get item type (event, announcement, etc)
   final List<Cell> getType =
       await sheet.cells.column(8, fromRow: 2, length: ss.sheets.length);
+
+  //loops through list of cells and converts to list of strings
+  List<String> cellToString(cellList) {
+    List<String> listOfStrings = [];
+    for (int i = 0; i < cellList.length; i++) {
+      listOfStrings.add(cellList[i].toString());
+    }
+    return listOfStrings;
+  }
+
+  //conglomerate everything into dic
+  //keys are header values (String)
+  //values are the cells in desired col (List<String>)
+  Map<String, dynamic> sheetMap() {
+    Map<String, dynamic> eventMap = {};
+    for (int i = 0; i < headers.length; i++) {
+      if (i == 4 || i == 11 || i == 8 || i == 7) {
+        eventMap[headers[i].value] = cellToString(
+            sheet.cells.column(i + 1, fromRow: 2, length: ss.sheets.length));
+      }
+    }
+    return eventMap;
+  }
+
+  return sheetMap();
 }
 
 class UploadScreen extends StatefulWidget {
