@@ -39,7 +39,7 @@ const _credentials = r'''
 /// https://docs.google.com/spreadsheets/d/1TYgcaoitANxOjMOduk5iRqTIvebWw2kT/edit?usp=sharing&ouid=100579109515815935973&rtpof=true&sd=true
 const _spreadsheetId = '1TYgcaoitANxOjMOduk5iRqTIvebWw2kT';
 
-void fileParsing() async {
+Future fileParsing() async {
   // init GSheets
   final gsheets = GSheets(_credentials);
   // fetch spreadsheet by its id
@@ -60,13 +60,13 @@ void fileParsing() async {
 
   // get first row as List of Cell objects
   //ie get headers
-  final firstRow = await sheet!.cells.row(1);
-  print(firstRow);
+  //final firstRow = await sheet!.cells.row(1);
+  //print(firstRow);
 
   // get cell at 'B2' as Cell object
-  final cell = await sheet.cells.cell(column: 2, row: 2);
+  //final cell = await sheet.cells.cell(column: 2, row: 2);
   // prints 'new'
-  print(cell.value);
+  //print(cell.value);
 
   //get sheet headers
   final headers = await await sheet!.cells.row(1);
@@ -113,6 +113,8 @@ void fileParsing() async {
     }
     return eventMap;
   }
+
+  return sheetMap();
 }
 
 class UploadScreen extends StatefulWidget {
