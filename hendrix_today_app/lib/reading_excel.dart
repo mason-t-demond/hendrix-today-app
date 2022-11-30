@@ -123,6 +123,8 @@ Future fileParsing(String input) async {
     return l;
   }
 
+
+
   //loops through list of cells and converts to list of strings
   List<String> cellToString(cellList) {
     List<String> listOfStrings = [];
@@ -145,6 +147,15 @@ Future fileParsing(String input) async {
     }
     return eventMap;
   }
+    List<Card> eventMap(List<String> nList){
+     List<Card> cardList = [];
+     int i = 0;
+      nList.forEach((element){
+        cardList.add(Card(child: ListTile(title: Text(element))));
+        i++;
+      });
+      return cardList;
+  }
 
   if (input == 'type') {
     return getEventType();
@@ -156,6 +167,8 @@ Future fileParsing(String input) async {
     return getEventDates();
   }
 }
+
+
 
 class UploadScreen extends StatefulWidget {
   const UploadScreen({super.key});
@@ -180,7 +193,7 @@ class _UploadScreenState extends State<UploadScreen> {
           setState(() {
             //this is incorrect use of this rn
             //needs to be dialouge box to get spreadsheet id
-            fileParsing();
+            
           });
         },
         child: const Text('Select a .xlsx file to upload'),

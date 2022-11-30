@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/link.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import "package:hendrix_today_app/reading_excel.dart";
 
 var daily_events_list;
 var daily_announcements_list;
@@ -15,6 +16,65 @@ class MyHomeScreen extends StatefulWidget {
 }
 
 class _MyHomeScreenState extends State<MyHomeScreen> {
+// var fileTitle = fileParsing("titles");
+// var fileType = fileParsing("types");
+// var fileDesc = fileParsing("desc");
+// var fileDate = fileParsing("dates");
+
+//     List<Card> eventMap(List<String> TiList, DeList, Dalist, TyList){
+//      List<Card> cardList = [];
+//      int i = 0;
+//       TiList.forEach((element){
+//         TyList.forEach((tipe){
+//           DeList.forEach((desc){
+//             Dalist.forEach((date){
+//         cardList.add(Card(
+//           child: ListTile(
+//             title: Text(element), 
+//             trailing: Text(date),
+//             subtitle: Text(tipe),
+//             onTap: () {
+//                     AlertDialog alert = AlertDialog(
+//                       title: Text(element),
+//                       insetPadding:
+//                           EdgeInsets.symmetric(vertical: 200, horizontal: 50),
+//                       content: Column(children: [
+//                         Text(desc)
+//                       ]),
+//                     );
+//                     showDialog(
+//                       context: context,
+//                       builder: (BuildContext context) {
+//                         return alert;
+//                       },
+//                     );
+//                   },
+//             )));
+//         i++;
+//             });
+//         });
+//       });
+//     });
+//       return cardList;
+//   }
+
+// //   futureChecker(){
+//   FutureBuilder(future: fileTitle,
+//     builder: (context, snapshot){
+//       if(snapshot.hasData){
+//         final GfileTitle = snapshot;
+//       }
+//       return Text("Failed to Future proof");
+//     });
+//   }
+
+  // cardMap(List<Card> cards){
+  //   cards = eventMap(fileTitle, fileDesc, fileDate, fileType);
+  //   cards.forEach((crd) { 
+  //     ListView.builder(itemBuilder: (context, crd));
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -29,41 +89,17 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
               Image.asset('assets/webOrange_banner.png',
                   key: const Key("Banner")),
               Card(
-                  elevation: 6.0,
-                  child: ListTile(
-                    title: Text('Farewell to Dean Wiltgen'),
-                    subtitle: Text('October 31st, 2-4pm'),
-                    onTap: () {
-                      AlertDialog alert = AlertDialog(
-                        title: Text('Farewell to Dean Wiltgen'),
-                        insetPadding:
-                            EdgeInsets.symmetric(vertical: 200, horizontal: 50),
-                        content: Column(children: [
-                          Text(
-                              "You are invited to drop by the SLTC Student Services Suite today from 2-4 p.m. to say farewell to Dean Wiltgen. There will be refreshments while they last!")
-                        ]),
-                      );
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return alert;
-                        },
-                      );
-                    },
-                  )),
-              Card(
-                elevation: 6.0,
-                child: ListTile(
-                  title: Text('NATIONAL FRENCH WEEK - Crêpe Extravaganza!'),
-                  subtitle: Text('October 31st, 4-5pm'),
-                  onTap: () {
+          child: ListTile(
+            title: Text("Event 1"), 
+            trailing: Text("Date 1"),
+            subtitle: Text("Type"),
+            onTap: () {
                     AlertDialog alert = AlertDialog(
-                      title: Text('NATIONAL FRENCH WEEK - Crêpe Extravaganza!'),
+                      title: Text("Title 1"),
                       insetPadding:
                           EdgeInsets.symmetric(vertical: 200, horizontal: 50),
                       content: Column(children: [
-                        Text(
-                            "Come out to the SLTC Kitchen today from 4-5 p.m. and help kick off National French Week at our Crêpe extravaganza! All are welcome! Be sure to check out all of the festivities planned this week.")
+                        Text("Desc 1")
                       ]),
                     );
                     showDialog(
@@ -73,8 +109,29 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                       },
                     );
                   },
-                ),
-              )
+            )),
+            Card(
+          child: ListTile(
+            title: Text("Title 2"), 
+            trailing: Text("Date 2"),
+            subtitle: Text("Type 2"),
+            onTap: () {
+                    AlertDialog alert = AlertDialog(
+                      title: Text("Title 2"),
+                      insetPadding:
+                          EdgeInsets.symmetric(vertical: 200, horizontal: 50),
+                      content: Column(children: [
+                        Text("Desc 2")
+                      ]),
+                    );
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return alert;
+                      },
+                    );
+                  },
+            ))     
             ],
           ),
         ),
@@ -90,3 +147,4 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
     ));
   }
 }
+

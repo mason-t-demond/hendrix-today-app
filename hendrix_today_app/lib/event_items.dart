@@ -1,4 +1,5 @@
 import 'dart:io';
+import "package:hendrix_today_app/reading_excel.dart";
 
 String title = '';
 String description = '';
@@ -25,5 +26,8 @@ class event_item{
     int idx = begin_post.indexOf("/");
     List split = [parts.substring(0,idx).trim(), parts.substring(idx+1).trim()];
     return split;
+  }
+  map_events(){
+
   }
 }
