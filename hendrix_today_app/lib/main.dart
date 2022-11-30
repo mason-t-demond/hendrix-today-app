@@ -3,12 +3,14 @@ import 'package:hendrix_today_app/home_screen.dart';
 import 'package:hendrix_today_app/calendar_screen.dart';
 import 'package:hendrix_today_app/search_screen.dart';
 import 'package:hendrix_today_app/firebase_options.dart';
-import 'dart:async';                                     // new
-import 'package:firebase_auth/firebase_auth.dart'        // new
-    hide EmailAuthProvider, PhoneAuthProvider;           // new
-import 'package:firebase_core/firebase_core.dart';       // new
+import 'dart:async'; // new
+import 'package:firebase_auth/firebase_auth.dart' // new
+    hide
+        EmailAuthProvider,
+        PhoneAuthProvider; // new
+import 'package:firebase_core/firebase_core.dart'; // new
 import 'package:firebase_ui_auth/firebase_ui_auth.dart'; // new
-import 'package:provider/provider.dart';                 // new
+import 'package:provider/provider.dart'; // new
 
 //import 'src/authentication.dart';                        // new
 //import 'src/widgets.dart';
@@ -22,9 +24,7 @@ void main() {
     create: (context) => ApplicationState(),
     builder: ((context, child) => const rootApp()),
   ));
-
 }
-
 
 class ScreenContainer extends StatefulWidget {
   const ScreenContainer({super.key});
@@ -38,6 +38,8 @@ class _ScreenContainerState extends State<ScreenContainer> {
   int selectedIndex = 0;
   List<Widget> pages = []; //contains each page
   List<String> titles = []; //contains the title of each page
+  final List<String> dropdownItems = ["EVENTS", "ANNOUCEMENTS", "MEETINGS"];
+  String dropdownValue = "EVENTS";
 
   @override
   void initState() {
@@ -47,40 +49,34 @@ class _ScreenContainerState extends State<ScreenContainer> {
       const CalendarScreen(),
       const SearchScreen()
     ]; //Stores Pages for BottomNav
-    titles = [
-      "Hendrix Today",
-      "HDX Calendar",
-      "Search"
-    ];}
-    @override
+    titles = ["Hendrix Today", "HDX Calendar", "Search"];
+  }
+
+  @override
   Widget build(BuildContext context) {
-     String dropdownValue = "events";
-    return Scaffold(  
-    appBar: AppBar(
-            backgroundColor: webOrange, title: Text(titles[selectedIndex]),
-            leading: IconButton(onPressed: (){
-              Navigator.pushNamed(context, "/sign-in");
-            }, icon: Icon(Icons.account_circle)),
-            actions: [
-               DropdownButton<String>(
-              //isExpanded: true,
-              value: dropdownValue, 
-              items: <String>["events", "announcements", "meetings"]
-              .map<DropdownMenuItem<String>>((String value){
-                return DropdownMenuItem<String>(
-                  value: value,
-                child: Text(value)
-                );
-              }).toList(), 
-              onChanged: (String? newValue){
-                setState(() {
-                  dropdownValue = newValue!;
-                });
-              }
-              ),
-            ],
-            
-            ),
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: webOrange,
+          title: Text(titles[selectedIndex]),
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, "/sign-in");
+              },
+              icon: Icon(Icons.account_circle)),
+          actions: [
+            DropdownButton(
+                //isExpanded: true,
+                value: dropdownValue,
+                items: dropdownItems.map((itemone) {
+                  return DropdownMenuItem(value: itemone, child: Text(itemone));
+                }).toList(),
+                onChanged: (newValue) {
+                  setState(() {
+                    dropdownValue = newValue.toString();
+                  });
+                }),
+          ],
+        ),
         body: Center(child: pages[selectedIndex]),
         bottomNavigationBar:
             BottomNavigationBar(items: <BottomNavigationBarItem>[
@@ -104,9 +100,8 @@ class _ScreenContainerState extends State<ScreenContainer> {
               label: "Search")
         ], currentIndex: selectedIndex, onTap: onItemTapped));
   }
-  
-     //Stores Page Titles for AppBar
-    
+
+  //Stores Page Titles for AppBar
 
   void onItemTapped(int index) {
     setState(() {
@@ -114,15 +109,13 @@ class _ScreenContainerState extends State<ScreenContainer> {
     });
   }
 }
-class rootApp extends StatelessWidget{
-  
+
+class rootApp extends StatelessWidget {
   const rootApp({super.key});
   final Color webOrange = const Color.fromARGB(255, 202, 81, 39);
 
-
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       theme: ThemeData(backgroundColor: webOrange),
       //Start adding here
@@ -130,7 +123,8 @@ class rootApp extends StatelessWidget{
       initialRoute: '/home',
       routes: {
         '/home': (context) {
-          return Consumer<ApplicationState>(builder: (context, appState, _)=> const ScreenContainer());
+          return Consumer<ApplicationState>(
+              builder: (context, appState, _) => const ScreenContainer());
         },
         '/sign-in': ((context) {
           return SignInScreen(
@@ -187,10 +181,11 @@ class rootApp extends StatelessWidget{
           );
         })
       },
-  );
+    );
   }
-  }
-class Router{
+}
+
+class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/home':
