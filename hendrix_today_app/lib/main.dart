@@ -40,7 +40,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
   int selectedIndex = 0;
   List<Widget> pages = []; //contains each page
   List<String> titles = []; //contains the title of each page
-  final List<String> dropdownItems = ["EVENTS", "ANNOUCEMENTS", "MEETINGS"];
+  final List<String> dropdownItems = ["EVENTS", "ANNOUNCEMENTS", "MEETINGS"];
   String dropdownValue = "EVENTS";
 
   @override
