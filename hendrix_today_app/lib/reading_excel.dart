@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'dart:html';
 
 import 'event.dart';
 import 'event_items.dart';
@@ -89,6 +90,29 @@ void fileParsing() async {
   //get item type (event, announcement, etc)
   final List<Cell> getType =
       await sheet.cells.column(8, fromRow: 2, length: ss.sheets.length);
+
+  //loops through list of cells and converts to list of strings
+  List<String> cellToString(cellList) {
+    List<String> listOfStrings = [];
+    for (int i = 0; i < cellList.length; i++) {
+      listOfStrings.add(cellList[i].toString());
+    }
+    return listOfStrings;
+  }
+
+  //conglomerate everything into dic
+  //keys are header values (String)
+  //values are the cells in desired col (List<String>)
+  Map<String, dynamic> sheetMap() {
+    Map<String, dynamic> eventMap = {};
+    for (int i = 0; i < headers.length; i++) {
+      if (i == 4 || i == 11 || i == 8 || i == 7) {
+        eventMap[headers[i].value] = cellToString(
+            sheet.cells.column(i + 1, fromRow: 2, length: ss.sheets.length));
+      }
+    }
+    return eventMap;
+  }
 }
 
 class UploadScreen extends StatefulWidget {
