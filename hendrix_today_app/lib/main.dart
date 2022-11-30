@@ -41,6 +41,8 @@ class _ScreenContainerState extends State<ScreenContainer> {
   int selectedIndex = 0;
   List<Widget> pages = []; //contains each page
   List<String> titles = []; //contains the title of each page
+  final List<String> dropdownItems = ["EVENTS", "ANNOUNCEMENTS", "MEETINGS"];
+  String dropdownValue = "EVENTS";
 
   @override
   void initState() {
@@ -62,7 +64,18 @@ class _ScreenContainerState extends State<ScreenContainer> {
             backgroundColor: webOrange, title: Text(titles[selectedIndex]),
             leading: IconButton(onPressed: (){
               Navigator.pushNamed(context, "/sign-in");
-            }, icon: Icon(Icons.account_circle))),
+            }, icon: Icon(Icons.account_circle))), 
+        bottomSheet: DropdownButton(
+                //isExpanded: true,
+                value: dropdownValue,
+                items: dropdownItems.map((itemone) {
+                  return DropdownMenuItem(value: itemone, child: Text(itemone));
+                }).toList(),
+                onChanged: (newValue) {
+                  setState(() {
+                    dropdownValue = newValue.toString();
+                  });
+                }),
         body: Center(child: pages[selectedIndex]),
         bottomNavigationBar:
             BottomNavigationBar(items: <BottomNavigationBarItem>[
