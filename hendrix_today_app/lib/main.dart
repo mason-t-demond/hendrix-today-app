@@ -47,9 +47,10 @@ class _ScreenContainerState extends State<ScreenContainer> {
     super.initState();
 
     //this is the function from reading_excel
-    //this returns a dic (Map<String, dynamic>)
-    //the String is the headers and the dynamic is the list of toStrings of desired cell values
-    fileParsing();
+    //this returns a List<String>
+    //now have to tell file parsing what you want
+    // 'dates' 'types' 'titles' 'desc'
+    fileParsing('');
 
     pages = [
       const MyHomeScreen(),

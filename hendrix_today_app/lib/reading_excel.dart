@@ -39,7 +39,7 @@ const _credentials = r'''
 /// https://docs.google.com/spreadsheets/d/1TYgcaoitANxOjMOduk5iRqTIvebWw2kT/edit?usp=sharing&ouid=100579109515815935973&rtpof=true&sd=true
 const _spreadsheetId = '1TYgcaoitANxOjMOduk5iRqTIvebWw2kT';
 
-Future fileParsing() async {
+Future fileParsing(String input) async {
   // init GSheets
   final gsheets = GSheets(_credentials);
   // fetch spreadsheet by its id
@@ -146,7 +146,15 @@ Future fileParsing() async {
     return eventMap;
   }
 
-  return sheetMap();
+  if (input == 'type') {
+    return getEventType();
+  } else if (input == 'desc') {
+    return getEventDesc();
+  } else if (input == 'titles') {
+    return getEventTitles();
+  } else if (input == 'dates') {
+    return getEventDates();
+  }
 }
 
 class UploadScreen extends StatefulWidget {
