@@ -87,7 +87,8 @@ class _ScreenContainerState extends State<ScreenContainer> {
               margin: EdgeInsets.all(10),
               child: FloatingActionButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, "/calendar");
+                  onItemTapped(1);
+                  //Navigator.pushNamed(context, "/calendar");
                 },
                 child: Icon(Icons.calendar_month),
               )), //button first
@@ -96,7 +97,8 @@ class _ScreenContainerState extends State<ScreenContainer> {
               margin: EdgeInsets.all(10),
               child: FloatingActionButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, "/home");
+                  onItemTapped(0);
+                  //Navigator.pushNamed(context, "/home");
                 },
                 backgroundColor: Colors.deepPurpleAccent,
                 child: Icon(Icons.home),
@@ -106,7 +108,8 @@ class _ScreenContainerState extends State<ScreenContainer> {
               margin: EdgeInsets.all(10),
               child: FloatingActionButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, "/search");
+                  onItemTapped(2);
+                  //Navigator.pushNamed(context, "/search");
                   //action code for button 3
                 },
                 backgroundColor: Colors.deepOrangeAccent,
