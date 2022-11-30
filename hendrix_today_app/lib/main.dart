@@ -8,8 +8,6 @@ import 'package:firebase_auth/firebase_auth.dart'        // new
     hide EmailAuthProvider, PhoneAuthProvider;           // new
 import 'package:firebase_core/firebase_core.dart';       // new
 import 'package:firebase_ui_auth/firebase_ui_auth.dart'; // new
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';                 // new
 
 //import 'src/authentication.dart';                        // new
@@ -17,15 +15,16 @@ import 'package:provider/provider.dart';                 // new
 
 //Teddy is our savior for firebase
 
+String dropdownValue = "events";
+
 void main() {
-  // Modify from here...
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(ChangeNotifierProvider(
     create: (context) => ApplicationState(),
     builder: ((context, child) => const rootApp()),
   ));
-  // ...to here.
+
 }
 
 
@@ -62,7 +61,25 @@ class _ScreenContainerState extends State<ScreenContainer> {
             backgroundColor: webOrange, title: Text(titles[selectedIndex]),
             leading: IconButton(onPressed: (){
               Navigator.pushNamed(context, "/sign-in");
-            }, icon: Icon(Icons.account_circle))),
+            }, icon: Icon(Icons.account_circle)),
+            actions: [
+               DropdownButton<String>(
+              isExpanded: true,
+              value: dropdownValue, 
+              items: <String>["events" "announcements" "meetings"]
+              .map<DropdownMenuItem<String>>((String value){
+                return DropdownMenuItem<String>(
+                  value:value,
+                child: Text(value)
+                );
+              }).toList(), 
+              onChanged: (String? newValue){
+                setState(() {
+                  dropdownValue = newValue!;
+                });
+              }),
+            ],
+            ),
         body: Center(child: pages[selectedIndex]),
         bottomNavigationBar:
             BottomNavigationBar(items: <BottomNavigationBarItem>[
