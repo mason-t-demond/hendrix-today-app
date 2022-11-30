@@ -11,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart' // new
 import 'package:firebase_core/firebase_core.dart'; // new
 import 'package:firebase_ui_auth/firebase_ui_auth.dart'; // new
 import 'package:provider/provider.dart'; // new
+import 'reading_excel.dart';
 
 //import 'src/authentication.dart';                        // new
 //import 'src/widgets.dart';
@@ -44,6 +45,12 @@ class _ScreenContainerState extends State<ScreenContainer> {
   @override
   void initState() {
     super.initState();
+
+    //this is the function from reading_excel
+    //this returns a dic (Map<String, dynamic>)
+    //the String is the headers and the dynamic is the list of toStrings of desired cell values
+    fileParsing();
+
     pages = [
       const MyHomeScreen(),
       const CalendarScreen(),
