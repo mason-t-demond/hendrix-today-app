@@ -16,57 +16,57 @@ class MyHomeScreen extends StatefulWidget {
 }
 
 class _MyHomeScreenState extends State<MyHomeScreen> {
-// var fileTitle = fileParsing("titles");
-// var fileType = fileParsing("types");
-// var fileDesc = fileParsing("desc");
-// var fileDate = fileParsing("dates");
+var fileTitle = fileParsing("titles");
+var fileType = fileParsing("types");
+var fileDesc = fileParsing("desc");
+var fileDate = fileParsing("dates");
 
-//     List<Card> eventMap(List<String> TiList, DeList, Dalist, TyList){
-//      List<Card> cardList = [];
-//      int i = 0;
-//       TiList.forEach((element){
-//         TyList.forEach((tipe){
-//           DeList.forEach((desc){
-//             Dalist.forEach((date){
-//         cardList.add(Card(
-//           child: ListTile(
-//             title: Text(element), 
-//             trailing: Text(date),
-//             subtitle: Text(tipe),
-//             onTap: () {
-//                     AlertDialog alert = AlertDialog(
-//                       title: Text(element),
-//                       insetPadding:
-//                           EdgeInsets.symmetric(vertical: 200, horizontal: 50),
-//                       content: Column(children: [
-//                         Text(desc)
-//                       ]),
-//                     );
-//                     showDialog(
-//                       context: context,
-//                       builder: (BuildContext context) {
-//                         return alert;
-//                       },
-//                     );
-//                   },
-//             )));
-//         i++;
-//             });
-//         });
-//       });
-//     });
-//       return cardList;
-//   }
+    List<Card> eventMap(List<String> TiList, DeList, Dalist, TyList){
+     List<Card> cardList = [];
+     int i = 0;
+      TiList.forEach((element){
+        TyList.forEach((tipe){
+          DeList.forEach((desc){
+            Dalist.forEach((date){
+        cardList.add(Card(
+          child: ListTile(
+            title: Text(element), 
+            trailing: Text(date),
+            subtitle: Text(tipe),
+            onTap: () {
+                    AlertDialog alert = AlertDialog(
+                      title: Text(element),
+                      insetPadding:
+                          EdgeInsets.symmetric(vertical: 200, horizontal: 50),
+                      content: Column(children: [
+                        Text(desc)
+                      ]),
+                    );
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return alert;
+                      },
+                    );
+                  },
+            )));
+        i++;
+            });
+        });
+      });
+    });
+      return cardList;
+  }
 
-// //   futureChecker(){
-//   FutureBuilder(future: fileTitle,
-//     builder: (context, snapshot){
-//       if(snapshot.hasData){
-//         final GfileTitle = snapshot;
-//       }
-//       return Text("Failed to Future proof");
-//     });
-//   }
+  // futureChecker(){
+  // FutureBuilder(future: fileTitle,
+  //   builder: (context, snapshot){
+  //     if(snapshot.hasData){
+  //       final GfileTitle = snapshot;
+  //     }
+  //     return Text("Failed to Future proof");
+  //   });
+  // }
 
   // cardMap(List<Card> cards){
   //   cards = eventMap(fileTitle, fileDesc, fileDate, fileType);

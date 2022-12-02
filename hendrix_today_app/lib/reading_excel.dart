@@ -147,15 +147,7 @@ Future fileParsing(String input) async {
     }
     return eventMap;
   }
-    List<Card> eventMap(List<String> nList){
-     List<Card> cardList = [];
-     int i = 0;
-      nList.forEach((element){
-        cardList.add(Card(child: ListTile(title: Text(element))));
-        i++;
-      });
-      return cardList;
-  }
+
 
   if (input == 'type') {
     return getEventType();
