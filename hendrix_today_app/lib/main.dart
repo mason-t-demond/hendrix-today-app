@@ -90,6 +90,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
                   onItemTapped(1);
                   //Navigator.pushNamed(context, "/calendar");
                 },
+                backgroundColor: Colors.black87,
                 child: Icon(Icons.calendar_month),
               )), //button first
 
@@ -100,7 +101,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
                   onItemTapped(0);
                   //Navigator.pushNamed(context, "/home");
                 },
-                backgroundColor: Colors.deepPurpleAccent,
+                backgroundColor: Colors.deepOrangeAccent,
                 child: Icon(Icons.home),
               )), // button second
 
@@ -112,13 +113,14 @@ class _ScreenContainerState extends State<ScreenContainer> {
                   //Navigator.pushNamed(context, "/search");
                   //action code for button 3
                 },
-                backgroundColor: Colors.deepOrangeAccent,
+                backgroundColor: Colors.teal,
                 child: Icon(Icons.search),
               )), // button third
 
           // Add more buttons here
         ],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
     /*
         bottomNavigationBar:
