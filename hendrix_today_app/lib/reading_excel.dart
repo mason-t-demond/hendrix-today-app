@@ -1,5 +1,10 @@
 import 'dart:ffi';
 import 'dart:html';
+import 'dart:js_util';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 
 import 'event.dart';
 import 'event_items.dart';
@@ -123,8 +128,6 @@ Future fileParsing(String input) async {
     return l;
   }
 
-
-
   //loops through list of cells and converts to list of strings
   List<String> cellToString(cellList) {
     List<String> listOfStrings = [];
@@ -148,7 +151,6 @@ Future fileParsing(String input) async {
     return eventMap;
   }
 
-
   if (input == 'type') {
     return getEventType();
   } else if (input == 'desc') {
@@ -159,8 +161,6 @@ Future fileParsing(String input) async {
     return getEventDates();
   }
 }
-
-
 
 class UploadScreen extends StatefulWidget {
   const UploadScreen({super.key});
@@ -185,7 +185,6 @@ class _UploadScreenState extends State<UploadScreen> {
           setState(() {
             //this is incorrect use of this rn
             //needs to be dialouge box to get spreadsheet id
-            
           });
         },
         child: const Text('Select a .xlsx file to upload'),
