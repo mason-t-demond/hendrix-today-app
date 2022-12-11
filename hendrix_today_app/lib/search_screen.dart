@@ -24,6 +24,7 @@ class _SearchScreenState extends State<SearchScreen> {
       /// In AnimSearchBar widget, the width, textController, onSuffixTap are required properties.
       /// You have also control over the suffixIcon, prefixIcon, helpText and animationDurationInMilli
       body: AnimSearchBar(
+        animationDurationInMilli: 150,
         width: 400,
         textController: textController,
         onSuffixTap: () {
