@@ -10,7 +10,8 @@ import 'package:firebase_auth/firebase_auth.dart' // new
         PhoneAuthProvider; // new
 import 'package:firebase_core/firebase_core.dart'; // new
 import 'package:firebase_ui_auth/firebase_ui_auth.dart'; // new
-import 'package:provider/provider.dart'; // new
+import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart'; // new
 
 //import 'src/authentication.dart';                        // new
 //import 'src/widgets.dart';
@@ -48,6 +49,15 @@ class _ScreenContainerState extends State<ScreenContainer> {
       const SearchScreen()
     ]; //Stores Pages for BottomNav
     titles = ["Hendrix Today", "HDX Calendar", "Search"];
+  }
+
+  _launchURLApp() async {
+    const url = 'https://www.hendrix.edu/diningservices/default.aspx?id=1009';
+    if (await canLaunch(url)) {
+      await launch(url, forceSafariVC: true, forceWebView: true);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -117,7 +127,13 @@ class _ScreenContainerState extends State<ScreenContainer> {
                 backgroundColor: Colors.teal,
                 child: Icon(Icons.search),
               )), // button third
-
+          Container(
+            margin: EdgeInsets.all(10),
+            child: FloatingActionButton(
+              onPressed: _launchURLApp,
+              child: const Icon(Icons.menu_book_outlined),
+            ),
+          )
           // Add more buttons here
         ],
       ),
