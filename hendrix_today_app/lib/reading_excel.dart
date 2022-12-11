@@ -9,7 +9,7 @@ import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-//https://pub.dev/packages/gsheets/install is where i got momst of the code
+//https://pub.dev/packages/gsheets/install is where I got most of the code
 import 'package:gsheets/gsheets.dart';
 
 /// Your google auth credentials
@@ -69,7 +69,7 @@ void fileParsing() async {
   print(cell.value);
 
   //get sheet headers
-  final headers = await await sheet!.cells.row(1);
+  final headers = await await sheet.cells.row(1);
 
   //get row values in a specific col
   final getColVals =
@@ -114,8 +114,6 @@ void fileParsing() async {
     return eventMap;
   }
 }
-
-
 
 class UploadScreen extends StatefulWidget {
   const UploadScreen({super.key});
