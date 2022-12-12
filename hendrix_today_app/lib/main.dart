@@ -52,11 +52,12 @@ class _ScreenContainerState extends State<ScreenContainer> {
   }
 
   _launchURLApp() async {
-    const url = 'https://www.hendrix.edu/diningservices/default.aspx?id=1009';
-    if (await canLaunch(url)) {
-      await launch(url, forceSafariVC: true, forceWebView: true);
+    Uri menuLink = Uri.parse(
+        'https://www.hendrix.edu/diningservices/default.aspx?id=1009');
+    if (await canLaunchUrl(menuLink)) {
+      await launchUrl(menuLink);
     } else {
-      throw 'Could not launch $url';
+      throw 'Could not launch $menuLink';
     }
   }
 
