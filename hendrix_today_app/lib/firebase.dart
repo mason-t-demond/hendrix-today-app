@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hendrix_today_app/event_items.dart';
 
-//tell Alexandria thank you for letting us use this code
 
 //initialize an instance of cloud firestore
 final db = FirebaseFirestore.instance; //instance of the database

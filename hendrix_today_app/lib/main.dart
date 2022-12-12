@@ -16,7 +16,7 @@ import 'package:url_launcher/url_launcher.dart'; // new
 //import 'src/authentication.dart';                        // new
 //import 'src/widgets.dart';
 
-//Teddy is our savior for firebase
+//Teddy is our savior for firebase authentication
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
