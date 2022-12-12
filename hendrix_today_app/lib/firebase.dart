@@ -7,30 +7,42 @@ import 'package:hendrix_today_app/event_items.dart';
 final db = FirebaseFirestore.instance; //instance of the database
 String userID = "";
 
-//init database collections
-//things we will need in the DB
-//Examples below:
-// final pHCollection = db.collection('pH');
-// final zincCollection = db.collection('Zinc');
-// final totalChlorineCollection = db.collection('TotalChlorine');
+class Event {
+  final String? title;
+  final String? desc;
+  final String? time;
+  final String? date;
 
-final eventTitle = db.collection('eventTitle');
+  Event({
+    this.title,
+    this.desc,
+    this.time,
+    this.date,
+  });
 
-class Firestore {
-  //a class for firestore functions
-
-  // addEvent takes in the collection (name in Firestore) and the measurement
-  // for the standard. Creates a new document adds fields with the userID, measurement,
-  //and timestamp
-  static Future addEvent(
-      String collection, String title, String description) async {
-    await db
-        .collection(collection)
-        .add({"eventTitle": title, "desc": description});
+  factory Event.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
+    final data = snapshot.data();
+    return Event(
+      title: data?['title'],
+      date: data?['date'],
+      desc: data?['desc'],
+      time: data?['time'],
+    );
   }
 
-  //this will give a map of all events
-  static Future getEvents(String collection, String title) async {
-    await db.collection(collection).get();
+  Map<String, dynamic> toFirestore() {
+    return {
+      if (title != null) "title": title,
+      if (date != null) "date": date,
+      if (time != null) "time": time,
+      if (desc != null) "desc": desc,
+    };
   }
 }
+
+final eventsListed = db.collection("events");
+final docRef = db.collection("eventsListed").get().then((value) => null);
+

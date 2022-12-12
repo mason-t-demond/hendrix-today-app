@@ -75,7 +75,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
         actions: [
           DropdownButton<String>(
               value: dropdownValue,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
               dropdownColor: webOrange,
               items: <String>["events", "announcements", "meetings"]
                   .map<DropdownMenuItem<String>>((String value) {
