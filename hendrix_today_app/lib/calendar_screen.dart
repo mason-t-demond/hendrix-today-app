@@ -67,8 +67,8 @@ class _EventCalendarState extends State<EventCalendar> {
           final calendarEndDate = DateTime(
               calendarRoot.year, calendarRoot.month + 6, calendarRoot.day);
 
-          return Column(
-            children: [
+          return SizedBox(
+            child: ListView(children: [
               TableCalendar(
                 firstDay: calendarStartDate,
                 lastDay: calendarEndDate,
@@ -104,40 +104,41 @@ class _EventCalendarState extends State<EventCalendar> {
                   _focusedDay = focusedDay;
                 },
               ),
-              const SizedBox(height: 8.0),
-              Expanded(
-                child: ListBody(
-                    children: snapshot.data!.docs
-                        .map((DocumentSnapshot document) {
-                          Map<String, dynamic> data =
-                              document.data()! as Map<String, dynamic>;
-                          return Card(
-                              child: ListTile(
-                            title: Text(data["title"]),
-                            subtitle: Text(data["date"]),
-                            onTap: () {
-                              AlertDialog alert = AlertDialog(
-                                title: Text(data["title"]),
-                                insetPadding: EdgeInsets.symmetric(
-                                    vertical: 200, horizontal: 50),
-                                content: Column(children: [Text(data["desc"])]),
-                              );
+              ListBody(
+                  //height: MediaQuery.of(context).size.height,
+                  //width: MediaQuery.of(context).size.width,
+                  //children: //ListView(
+                  children: snapshot.data!.docs
+                      .map((DocumentSnapshot document) {
+                        Map<String, dynamic> data =
+                            document.data()! as Map<String, dynamic>;
+                        return Card(
+                            child: ListTile(
+                          title: Text(data["title"]),
+                          subtitle: Text(data["date"]),
+                          onTap: () {
+                            AlertDialog alert = AlertDialog(
+                              title: Text(data["title"]),
+                              insetPadding: EdgeInsets.symmetric(
+                                  vertical: 200, horizontal: 50),
+                              content: Column(children: [Text(data["desc"])]),
+                            );
 
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return alert;
-                                },
-                              );
-                            },
-                          ));
-                        })
-                        .toList()
-                        .cast()),
-                //),
-              ),
-            ],
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return alert;
+                              },
+                            );
+                          },
+                        ));
+                      })
+                      .toList()
+                      .cast()),
+              //),
+            ]),
           );
+          //);
         });
   }
 }
