@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'reading_excel.dart' as rb;
-import 'firebase.dart' as fb;
 
 var daily_events_list;
 var daily_announcements_list;
@@ -19,9 +14,6 @@ class MyHomeScreen extends StatefulWidget {
 //got the code for below from: https://firebase.google.com/docs/firestore/query-data/listen#dart_1
 
 class _MyHomeScreenState extends State<MyHomeScreen> {
-  final Stream<QuerySnapshot> _usersStream =
-      fb.db.collection('eventsListed').snapshots();
-
   @override
   Widget build(BuildContext context) {
     //builds a snapshot of Firebase at the time its called
