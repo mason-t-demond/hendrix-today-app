@@ -5,6 +5,8 @@ import 'package:hendrix_today_app/home_screen.dart';
 import 'package:hendrix_today_app/calendar_screen.dart';
 import 'package:hendrix_today_app/search_screen.dart';
 
+//worked before firebase implementation
+
 void main() {
   testWidgets('Home Screen has cards', (tester) async {
     await tester
@@ -27,6 +29,6 @@ void main() {
         .pumpWidget(const MaterialApp(home: Scaffold(body: SearchScreen())));
     await tester.pumpAndSettle();
 
-    expect(find.byType(AnimSearchBar), findsOneWidget);
+    expect(find.byType(TextField), findsOneWidget);
   });
 }

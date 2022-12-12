@@ -6,6 +6,7 @@ import 'package:hendrix_today_app/main.dart';
 import 'package:hendrix_today_app/search_screen.dart';
 
 //code for expecting a page found here: https://stackoverflow.com/a/51983194
+//worked before firebase implementation
 
 void main() {
   testWidgets('Screen Container has 4 buttons', (tester) async {
