@@ -40,6 +40,8 @@ class _ScreenContainerState extends State<ScreenContainer> {
   List<Widget> pages = []; //contains each page
   List<String> titles = [];
   List<String> menuLinks = []; //contains the title of each page
+  final List<String> dropdownItems = ["Events", "Announcements", "Meetings"];
+  String dropdownValue = "Events";
 
   @override
   void initState() {
@@ -74,7 +76,6 @@ class _ScreenContainerState extends State<ScreenContainer> {
 
   @override
   Widget build(BuildContext context) {
-    String dropdownValue = "events";
     return Scaffold(
       appBar: AppBar(
         backgroundColor: webOrange,
@@ -89,14 +90,12 @@ class _ScreenContainerState extends State<ScreenContainer> {
               value: dropdownValue,
               style: TextStyle(color: Colors.white),
               dropdownColor: webOrange,
-              items: <String>["events", "announcements", "meetings"]
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                    value: value, child: Text(value));
+              items: dropdownItems.map((itemone) {
+                return DropdownMenuItem(value: itemone, child: Text(itemone));
               }).toList(),
-              onChanged: (String? newValue) {
+              onChanged: (newValue) {
                 setState(() {
-                  dropdownValue = newValue!;
+                  dropdownValue = newValue.toString();
                 });
               }),
         ],
