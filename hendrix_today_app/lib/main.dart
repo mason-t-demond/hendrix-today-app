@@ -113,7 +113,6 @@ class _ScreenContainerState extends State<ScreenContainer> {
               child: FloatingActionButton(
                 onPressed: () {
                   onItemTapped(1);
-                  //Navigator.pushNamed(context, "/calendar");
                 },
                 backgroundColor: Colors.black87,
                 child: Icon(Icons.calendar_month),
@@ -125,7 +124,6 @@ class _ScreenContainerState extends State<ScreenContainer> {
               child: FloatingActionButton(
                 onPressed: () {
                   onItemTapped(0);
-                  //Navigator.pushNamed(context, "/home");
                 },
                 backgroundColor: Colors.deepOrangeAccent,
                 child: Icon(Icons.home),
@@ -137,7 +135,6 @@ class _ScreenContainerState extends State<ScreenContainer> {
               child: FloatingActionButton(
                 onPressed: () {
                   onItemTapped(2);
-                  //Navigator.pushNamed(context, "/search");
                   //action code for button 3
                 },
                 backgroundColor: Colors.teal,
