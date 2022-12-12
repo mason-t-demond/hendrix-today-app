@@ -42,7 +42,19 @@ class Event {
     };
   }
 }
-
+Future getRef()async{
+final ref = db.collection("events").doc("event1").withConverter(
+    fromFirestore: Event.fromFirestore,
+    toFirestore: (Event event, _) => event.toFirestore(),
+    );
+final docSnap = await ref.get();
+final event = docSnap.data(); // Convert to City object
+if (event != null) {
+  print(event);
+} else {
+  print("No such document.");
+}
+}
 final eventsListed = db.collection("events");
 final docRef = db.collection("eventsListed").get().then((value) => null);
 
