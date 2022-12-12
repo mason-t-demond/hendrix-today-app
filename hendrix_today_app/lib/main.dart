@@ -50,7 +50,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
     super.initState();
     pages = [
       const MyHomeScreen(),
-      const CalendarScreen(),
+      const EventCalendar(),
       const SearchScreen()
     ]; //Stores Pages for BottomNav
     titles = ["Hendrix Today", "HDX Calendar", "Search"];
@@ -184,7 +184,7 @@ class rootApp extends StatelessWidget {
               builder: (context, appState, _) => const ScreenContainer());
         },
         '/search': (context) => SearchScreen(),
-        '/calendar': (context) => CalendarScreen(),
+        '/calendar': (context) => EventCalendar(),
         '/sign-in': ((context) {
           return SignInScreen(
             actions: [

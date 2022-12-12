@@ -1,6 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:hendrix_today_app/event.dart';
+import 'package:flutter/material.dart';
+import 'package:hendrix_today_app/home_screen.dart';
+import 'package:hendrix_today_app/calendar_screen.dart';
+import 'package:hendrix_today_app/search_screen.dart';
+import 'package:hendrix_today_app/firebase_options.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:async'; // new
+import 'firebase.dart' as fb; // 
 
 class EventCalendar extends StatefulWidget {
   const EventCalendar({super.key});
@@ -17,17 +23,17 @@ class _EventCalendarState extends State<EventCalendar> {
   DateTime? _selectedDay;
   late DateTime calendarStartDate;
   late DateTime calendarEndDate;
-  late final ValueNotifier<List<Event>> _selectedEvents;
+  //late final ValueNotifier<List<Event>> _selectedEvents;
 
   @override
   void initState() {
     _selectedDay = _focusedDay;
-    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
+    //_selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
   }
 
-  List<Event> _getEventsForDay(DateTime day) {
-    return kEvents[day] ?? [];
-  }
+ // List<Event> _getEventsForDay(DateTime day) {
+   // return kEvents[day] ?? [];
+  //}
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     if (!isSameDay(_selectedDay, selectedDay)) {
@@ -35,12 +41,26 @@ class _EventCalendarState extends State<EventCalendar> {
         _selectedDay = selectedDay;
         _focusedDay = focusedDay;
       });
-      _selectedEvents.value = _getEventsForDay(selectedDay);
+      //_selectedEvents.value = _getEventsForDay(selectedDay);
     }
   }
+  
+
+ final Stream<QuerySnapshot> _usersStream =
+      fb.db.collection('eventsListed').snapshots();
 
   @override
   Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: _usersStream,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return const Text('Something went wrong');
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text("Loading");
+        }
     //sets the bounds for the calendar at 6 months before and after the current date
     final calendarRoot = DateTime.now();
     final calendarStartDate =
@@ -87,53 +107,41 @@ class _EventCalendarState extends State<EventCalendar> {
         ),
         const SizedBox(height: 8.0),
         Expanded(
-          child: ValueListenableBuilder<List<Event>>(
-            valueListenable: _selectedEvents,
-            builder: (context, value, _) {
-              return SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child: ListView.builder(
-                  itemCount: value.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Card(child: ListTile(
-                        onTap: () {AlertDialog alert = AlertDialog(
-                      title: Text('${value[index]}'),
-                      insetPadding: EdgeInsets.symmetric(vertical: 200, horizontal: 50),
-                      content: Column(children: [
-                        Text(
-                            "description parsed here")
-                      ]),
-                    );
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return alert;
-                      },
-                    );
-                  },
-                        title: Text('${value[index]}'),
-                      ),
-                    ));
-                  },
-                ),
-              );
-            },
-          ),
+          child:
+              ListBody(
+                  children: snapshot.data!.docs
+                      .map((DocumentSnapshot document) {
+                        Map<String, dynamic> data =
+                            document.data()! as Map<String, dynamic>;
+                        return Card(
+                            child: ListTile(
+                          title: Text(data["title"]),
+                          subtitle: Text(data["date"]),
+                          onTap: () {
+                            AlertDialog alert = AlertDialog(
+                              title: Text(data["title"]),
+                              insetPadding: EdgeInsets.symmetric(
+                                  vertical: 200, horizontal: 50),
+                              content: Column(children: [Text(data["desc"])]),
+                            );
+
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return alert;
+                              },
+                            );
+                          },
+                        ));
+                      })
+                      .toList()
+                      .cast()),
+              //),
         ),
       ],
     );
-  }
-}
+  });
+}}
 
 //creates calendar page in app
 class CalendarScreen extends StatefulWidget {

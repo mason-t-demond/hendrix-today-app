@@ -1,6 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hendrix_today_app/event_items.dart';
+import 'package:firebase_core/firebase_core.dart'; // new
+import 'package:firebase_ui_auth/firebase_ui_auth.dart'; 
+import 'package:hendrix_today_app/firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart' // new
+
+    hide
+        EmailAuthProvider,
+        PhoneAuthProvider; 
 
 //initialize an instance of cloud firestore
 final db = FirebaseFirestore.instance; //instance of the database
@@ -69,8 +77,6 @@ getEvents() async {
   return dic;
 }
 
-final eventsListed = db.collection("events");
-final docRef = db.collection("eventsListed").get().then((value) => null);
 
 class UserInformation extends StatefulWidget {
   @override
