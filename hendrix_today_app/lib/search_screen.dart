@@ -1,6 +1,10 @@
 // a lot of code was written with the help of this video: https://www.youtube.com/watch?v=pUV5v240po0&ab_channel=dbestech
 import 'package:flutter/material.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:async'; // new
+import 'firebase.dart' as fb; //
+
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
 
@@ -14,18 +18,9 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   Color webOrange = const Color.fromARGB(255, 202, 81, 39);
   TextEditingController textController = TextEditingController();
-  List<String> events = [
-    'Sword Club',
-    'Ask Mason a Question Day',
-    'Sarah Appreciation Day',
-    'Perceive Olivia Day',
-    'Is ET an Alien?',
-    'Fry Friday',
-    "Eat at Arby's",
-    "DO NOT PRESS THE RED BUTTON",
-    'No Sleeve Day',
-    'HDX Secret Cult Meeting'
-  ];
+  final Stream<QuerySnapshot> _usersStream =
+      fb.db.collection('eventsListed').snapshots();
+  List<String> events = [];
   List<String> searchedEvents = [];
 
   @override
@@ -53,29 +48,68 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20.0),
-            child: TextField(
-              onChanged: (value) => runFilter(value),
-              decoration: const InputDecoration(
-                  labelText: 'Enter search query',
-                  suffixIcon: Icon(Icons.search)),
-            ),
+    return StreamBuilder<QuerySnapshot>(
+      stream: _usersStream,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return const Text('Something went wrong');
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text("Loading");
+        }
+
+        return SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: ListView(
+            key: const Key('daily_events_list'),
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  onChanged: (value) => runFilter(value),
+                  decoration: const InputDecoration(
+                      labelText: 'Enter search query',
+                      suffixIcon: Icon(Icons.search)),
+                ),
+              ),
+              ListBody(
+                  //pulls data (events) from snapshot and converts to map
+                  //then converts to list
+                  //then converts to card
+                  children: snapshot.data!.docs
+                      .map((DocumentSnapshot document) {
+                        Map<String, dynamic> data =
+                            document.data()! as Map<String, dynamic>;
+                        return Card(
+                            elevation: 6.0,
+                            child: ListTile(
+                              title: Text(data["title"]),
+                              subtitle: Text(data["date"]),
+                              onTap: () {
+                                AlertDialog alert = AlertDialog(
+                                  title: Text(data["title"]),
+                                  insetPadding: EdgeInsets.symmetric(
+                                      vertical: 200, horizontal: 50),
+                                  content:
+                                      Column(children: [Text(data["desc"])]),
+                                );
+
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return alert;
+                                  },
+                                );
+                              },
+                            ));
+                      })
+                      .toList()
+                      .cast()),
+            ],
           ),
-          Expanded(
-            child: ListView.builder(
-                itemCount: searchedEvents.length,
-                itemBuilder: (context, index) => Card(
-                    elevation: 6.0,
-                    margin: const EdgeInsets.symmetric(vertical: 2.5),
-                    child: ListTile(title: Text(searchedEvents[index])))),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

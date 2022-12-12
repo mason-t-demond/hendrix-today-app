@@ -54,25 +54,27 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
                         Map<String, dynamic> data =
                             document.data()! as Map<String, dynamic>;
                         return Card(
+                            elevation: 6.0,
                             child: ListTile(
-                          title: Text(data["title"]),
-                          subtitle: Text(data["date"]),
-                          onTap: () {
-                            AlertDialog alert = AlertDialog(
                               title: Text(data["title"]),
-                              insetPadding: EdgeInsets.symmetric(
-                                  vertical: 200, horizontal: 50),
-                              content: Column(children: [Text(data["desc"])]),
-                            );
+                              subtitle: Text(data["date"]),
+                              onTap: () {
+                                AlertDialog alert = AlertDialog(
+                                  title: Text(data["title"]),
+                                  insetPadding: EdgeInsets.symmetric(
+                                      vertical: 200, horizontal: 50),
+                                  content:
+                                      Column(children: [Text(data["desc"])]),
+                                );
 
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return alert;
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return alert;
+                                  },
+                                );
                               },
-                            );
-                          },
-                        ));
+                            ));
                       })
                       .toList()
                       .cast()),
