@@ -1,5 +1,5 @@
 import 'dart:ffi';
-import 'dart:html';
+//import 'dart:html';
 
 import 'event.dart';
 import 'event_items.dart';
@@ -150,7 +150,7 @@ class _UploadScreenState extends State<UploadScreen> {
           setState(() {
             //this is incorrect use of this rn
             //needs to be dialouge box to get spreadsheet id
-            fileParsing('desc');
+            fileParsing('');
           });
         },
         child: const Text('Select a .xlsx file to upload'),

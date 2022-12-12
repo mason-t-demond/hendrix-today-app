@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:hendrix_today_app/event_items.dart';
-
 
 //initialize an instance of cloud firestore
 final db = FirebaseFirestore.instance; //instance of the database
@@ -42,19 +42,72 @@ class Event {
   }
 }
 
-Future getRef()async{
-final ref = db.collection("eventsListed").doc("event1").withConverter(
-    fromFirestore: Event.fromFirestore,
-    toFirestore: (Event event, _) => event.toFirestore(),
-    );
-final docSnap = await ref.get();
-final event = docSnap.data(); // Convert to Event object
-if (event != null) {
-  print(event);
-} else {
-  print("No such document.");
+Future getRef() async {
+  final ref = db.collection("eventsListed").doc("event1").withConverter(
+        fromFirestore: Event.fromFirestore,
+        toFirestore: (Event event, _) => event.toFirestore(),
+      );
+  final docSnap = await ref.get();
+  final event = docSnap.data(); // Convert to Event object
+  if (event != null) {
+    return (event);
+  } else {
+    return ("No such document.");
+  }
 }
+
+//should return a Future<Map<String, String>>
+getEvents() async {
+  Map dic = {};
+  final events = await db.collection('eventsListed').get();
+  for (var e in events.docs) {
+    //return (e.data())
+    Map d = e.data();
+    d.values.toString();
+    dic = d;
+  }
+  return dic;
 }
+
 final eventsListed = db.collection("events");
 final docRef = db.collection("eventsListed").get().then((value) => null);
 
+class UserInformation extends StatefulWidget {
+  @override
+  _UserInformationState createState() => _UserInformationState();
+}
+
+class _UserInformationState extends State<UserInformation> {
+  final Stream<QuerySnapshot> _usersStream =
+      db.collection('eventslisted').snapshots();
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: _usersStream,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return const Text('Something went wrong');
+        }
+
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text("Loading");
+        }
+
+        return ListView(
+          children: snapshot.data!.docs
+              .map((DocumentSnapshot document) {
+                Map<String, dynamic> data =
+                    document.data()! as Map<String, dynamic>;
+                return ListTile(
+                  title: Text(data['title']),
+                  subtitle: Text(data['date']),
+                );
+              })
+              .toList()
+              .cast(),
+        );
+      },
+    );
+  }
+}

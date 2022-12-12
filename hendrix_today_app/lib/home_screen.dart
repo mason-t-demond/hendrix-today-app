@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'firebase.dart';
 
 var daily_events_list;
 var daily_announcements_list;
