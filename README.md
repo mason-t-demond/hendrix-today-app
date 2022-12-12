@@ -11,12 +11,11 @@ Hendrix Communications sends out daily emails about campus events, meetings, ann
 
 
 ##  Home Page    -------> Calendar Page  ----> Search Page ----> Menu Page
-<img src="https://user-images.githubusercontent.com/77701303/206943206-d6d0a443-7dfb-4979-910a-6034d43e2ade.jpg" width="200" height="400"/> <img src="https://user-images.githubusercontent.com/77701303/206943203-39a831a3-cb94-4040-b09a-a7fd60536114.jpg" width="200" height="400"/> <img src="https://user-images.githubusercontent.com/77701303/206943196-257565a1-c729-41f6-b423-eb6f8717068c.jpg" width="200" height="400"/> <img src="https://user-images.githubusercontent.com/77701303/206943192-73326c9d-5efd-487b-bf9e-ce7fc94821ee.jpg" width="200" height="400"/>
+<img src="https://user-images.githubusercontent.com/77701303/207127063-5d2963d9-782a-4ce6-97a1-7fb6580b5616.jpg" width="200" height="400"/> <img src="https://user-images.githubusercontent.com/77701303/207127142-97561ba0-f5eb-4d51-84cd-ccc022981961.jpg" width="200" height="400"/> <img src="https://user-images.githubusercontent.com/77701303/207127242-5006818e-f125-4ecb-8341-ea8ab64c96e0.jpg" width="200" height="400"/> <img src="https://user-images.githubusercontent.com/77701303/206943192-73326c9d-5efd-487b-bf9e-ce7fc94821ee.jpg" width="200" height="400"/>
 
 Here's a link to our requirements document where we go more in depth about our app 
 
 [Requirements Document](https://docs.google.com/document/d/1aFrtJZu5sKYgvZ6Ae7Dmc6X690QL6kGVvmR6PN8UGgw/edit?usp=sharing)
-
 
 
 
