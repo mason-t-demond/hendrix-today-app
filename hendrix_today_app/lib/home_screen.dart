@@ -24,6 +24,8 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //builds a snapshot of Firebase at the time its called
+    //houses the snapshot in _usersStream
     return StreamBuilder<QuerySnapshot>(
       stream: _usersStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -40,9 +42,13 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
           child: ListView(
             key: const Key('daily_events_list'),
             children: <Widget>[
+              //hendrix today banner
               Image.asset('assets/webOrange_banner.png',
                   key: const Key("Banner")),
               ListBody(
+                  //pulls data (events) from snapshot and converts to map
+                  //then converts to list
+                  //then converts to card
                   children: snapshot.data!.docs
                       .map((DocumentSnapshot document) {
                         Map<String, dynamic> data =
