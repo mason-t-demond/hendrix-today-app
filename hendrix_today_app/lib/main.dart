@@ -86,8 +86,8 @@ class _ScreenContainerState extends State<ScreenContainer> {
                 setState(() {
                   dropdownValue = newValue!;
                 });
-              }),    
-      ],
+              }),
+        ],
       ),
       body: Center(child: pages[selectedIndex]),
       floatingActionButton: Wrap(
@@ -139,6 +139,29 @@ class _ScreenContainerState extends State<ScreenContainer> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
+    /*
+        bottomNavigationBar:
+            BottomNavigationBar(items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+                color: webOrange,
+              ),
+              label: "Home"),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.calendar_month_outlined,
+                color: webOrange,
+              ),
+              label: "Calendar"),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.search,
+                color: webOrange,
+              ),
+              label: "Search")
+        ], currentIndex: selectedIndex, onTap: onItemTapped)
+        */
   }
 
   //Stores Page Titles for AppBar
@@ -271,12 +294,12 @@ class ApplicationState extends ChangeNotifier {
   }
 }
 
-    List<Card> eventMap(List<String> nList){
-     List<Card> cardList = [];
-     int i = 0;
-      nList.forEach((element){
-        cardList.add(Card(child: ListTile(title: Text(element))));
-        i++;
-      });
-      return cardList;
-  }
+List<Card> eventMap(List<String> nList) {
+  List<Card> cardList = [];
+  int i = 0;
+  nList.forEach((element) {
+    cardList.add(Card(child: ListTile(title: Text(element))));
+    i++;
+  });
+  return cardList;
+}
