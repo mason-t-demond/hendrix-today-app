@@ -32,20 +32,54 @@ class _MyHomeScreenState extends State<MyHomeScreen> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Text("Loading");
         }
+        //return Center(
+        // return Column(
+        //   children: [
+        return SizedBox(
+          width: MediaQuery.of(context).size.width,
+          //height: MediaQuery.of(context).size.height - 200,
+          child: ListView(
+            key: const Key('daily_events_list'),
+            children: <Widget>[
+              Image.asset('assets/webOrange_banner.png',
+                  key: const Key("Banner")),
+              //ListView(
+              //children:
+              ListBody(
+                  children: snapshot.data!.docs
+                      .map((DocumentSnapshot document) {
+                        Map<String, dynamic> data =
+                            document.data()! as Map<String, dynamic>;
+                        return Card(
+                            child: ListTile(
+                          title: Text(data["title"]),
+                          subtitle: Text(data["date"]),
+                          onTap: () {
+                            AlertDialog alert = AlertDialog(
+                              title: Text(data["title"]),
+                              insetPadding: EdgeInsets.symmetric(
+                                  vertical: 200, horizontal: 50),
+                              content: Column(children: [Text(data["desc"])]),
+                            );
 
-        return ListView(
-          children: snapshot.data!.docs
-              .map((DocumentSnapshot document) {
-                Map<String, dynamic> data =
-                    document.data()! as Map<String, dynamic>;
-                return ListTile(
-                  title: Text(data['title']),
-                  subtitle: Text(data['date']),
-                );
-              })
-              .toList()
-              .cast(),
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return alert;
+                              },
+                            );
+                          },
+                        ));
+                      })
+                      .toList()
+                      .cast()),
+              //),
+            ],
+          ),
         );
+        //],
+        //),
+        //);
       },
     );
     // return Center(
