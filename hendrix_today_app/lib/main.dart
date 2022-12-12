@@ -38,7 +38,10 @@ class _ScreenContainerState extends State<ScreenContainer> {
   Color webOrange = const Color.fromARGB(255, 202, 81, 39);
   int selectedIndex = 0;
   List<Widget> pages = []; //contains each page
-  List<String> titles = []; //contains the title of each page
+  List<String> titles = [];
+  List<String> menuLinks = []; //contains the title of each page
+  final List<String> dropdownItems = ["Events", "Announcements", "Meetings"];
+  String dropdownValue = "Events";
 
   @override
   void initState() {
@@ -49,20 +52,30 @@ class _ScreenContainerState extends State<ScreenContainer> {
       const SearchScreen()
     ]; //Stores Pages for BottomNav
     titles = ["Hendrix Today", "HDX Calendar", "Search"];
+    menuLinks = [
+      "https://www.hendrix.edu/diningservices/default.aspx?id=1003",
+      "https://www.hendrix.edu/diningservices/default.aspx?id=1004",
+      "https://www.hendrix.edu/diningservices/default.aspx?id=1005",
+      "https://www.hendrix.edu/diningservices/default.aspx?id=1006",
+      "https://www.hendrix.edu/diningservices/default.aspx?id=1007",
+      "https://www.hendrix.edu/diningservices/default.aspx?id=1008",
+      "https://www.hendrix.edu/diningservices/default.aspx?id=1002"
+    ];
   }
 
   _launchURLApp() async {
-    const url = 'https://www.hendrix.edu/diningservices/default.aspx?id=1009';
-    if (await canLaunch(url)) {
-      await launch(url, forceSafariVC: true, forceWebView: true);
+    int dayOfWeek = DateTime.now().weekday;
+    String menuLink = menuLinks[dayOfWeek - 1];
+    Uri menuUrl = Uri.parse(menuLink);
+    if (await canLaunchUrl(menuUrl)) {
+      await launchUrl(menuUrl);
     } else {
-      throw 'Could not launch $url';
+      throw 'Could not launch $menuUrl';
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    String dropdownValue = "events";
     return Scaffold(
       appBar: AppBar(
         backgroundColor: webOrange,
@@ -77,17 +90,15 @@ class _ScreenContainerState extends State<ScreenContainer> {
               value: dropdownValue,
               style: const TextStyle(color: Colors.white),
               dropdownColor: webOrange,
-              items: <String>["events", "announcements", "meetings"]
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                    value: value, child: Text(value));
+              items: dropdownItems.map((itemone) {
+                return DropdownMenuItem(value: itemone, child: Text(itemone));
               }).toList(),
-              onChanged: (String? newValue) {
+              onChanged: (newValue) {
                 setState(() {
-                  dropdownValue = newValue!;
+                  dropdownValue = newValue.toString();
                 });
-              }),    
-      ],
+              }),
+        ],
       ),
       body: Center(child: pages[selectedIndex]),
       floatingActionButton: Wrap(
@@ -130,15 +141,38 @@ class _ScreenContainerState extends State<ScreenContainer> {
           Container(
             margin: EdgeInsets.all(10),
             child: FloatingActionButton(
-              onPressed: _launchURLApp,
-              child: const Icon(Icons.menu_book_outlined),
-            ),
+                onPressed: _launchURLApp,
+                backgroundColor: Color.fromARGB(255, 162, 131, 102),
+                child: const Icon(Icons.food_bank)),
           )
           // Add more buttons here
         ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
+    /*
+        bottomNavigationBar:
+            BottomNavigationBar(items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+                color: webOrange,
+              ),
+              label: "Home"),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.calendar_month_outlined,
+                color: webOrange,
+              ),
+              label: "Calendar"),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.search,
+                color: webOrange,
+              ),
+              label: "Search")
+        ], currentIndex: selectedIndex, onTap: onItemTapped)
+        */
   }
 
   //Stores Page Titles for AppBar
@@ -271,12 +305,12 @@ class ApplicationState extends ChangeNotifier {
   }
 }
 
-    List<Card> eventMap(List<String> nList){
-     List<Card> cardList = [];
-     int i = 0;
-      nList.forEach((element){
-        cardList.add(Card(child: ListTile(title: Text(element))));
-        i++;
-      });
-      return cardList;
-  }
+List<Card> eventMap(List<String> nList) {
+  List<Card> cardList = [];
+  int i = 0;
+  nList.forEach((element) {
+    cardList.add(Card(child: ListTile(title: Text(element))));
+    i++;
+  });
+  return cardList;
+}

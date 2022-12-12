@@ -39,7 +39,7 @@ const _credentials = r'''
 /// https://docs.google.com/spreadsheets/d/1TYgcaoitANxOjMOduk5iRqTIvebWw2kT/edit?usp=sharing&ouid=100579109515815935973&rtpof=true&sd=true
 const _spreadsheetId = '1TYgcaoitANxOjMOduk5iRqTIvebWw2kT';
 
-void fileParsing() async {
+Future<List<String>> fileParsing(String input) async {
   // init GSheets
   final gsheets = GSheets(_credentials);
   // fetch spreadsheet by its id
@@ -113,6 +113,18 @@ void fileParsing() async {
     }
     return eventMap;
   }
+
+  if (input == 'title') {
+    return cellToString(getTitles);
+  } else if (input == 'date') {
+    return cellToString(getEDates);
+  } else if (input == 'desc') {
+    return cellToString(getDesc);
+  } else if (input == 'type') {
+    return cellToString(getType);
+  } else {
+    return [''];
+  }
 }
 
 class UploadScreen extends StatefulWidget {
@@ -138,7 +150,7 @@ class _UploadScreenState extends State<UploadScreen> {
           setState(() {
             //this is incorrect use of this rn
             //needs to be dialouge box to get spreadsheet id
-            fileParsing();
+            fileParsing('desc');
           });
         },
         child: const Text('Select a .xlsx file to upload'),
