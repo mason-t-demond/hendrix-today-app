@@ -18,8 +18,10 @@ import 'package:url_launcher/url_launcher.dart'; // new
 
 //Teddy is our savior for firebase authentication
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp();
 
   runApp(ChangeNotifierProvider(
     create: (context) => ApplicationState(),
@@ -285,4 +287,3 @@ class ApplicationState extends ChangeNotifier {
     });
   }
 }
-
