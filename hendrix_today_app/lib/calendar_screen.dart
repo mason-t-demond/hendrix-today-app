@@ -6,7 +6,7 @@ import 'package:hendrix_today_app/search_screen.dart';
 import 'package:hendrix_today_app/firebase_options.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async'; // new
-import 'firebase.dart' as fb; // 
+import 'firebase.dart' as fb; //
 
 class EventCalendar extends StatefulWidget {
   const EventCalendar({super.key});
@@ -31,8 +31,8 @@ class _EventCalendarState extends State<EventCalendar> {
     //_selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
   }
 
- // List<Event> _getEventsForDay(DateTime day) {
-   // return kEvents[day] ?? [];
+  // List<Event> _getEventsForDay(DateTime day) {
+  // return kEvents[day] ?? [];
   //}
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
@@ -44,104 +44,103 @@ class _EventCalendarState extends State<EventCalendar> {
       //_selectedEvents.value = _getEventsForDay(selectedDay);
     }
   }
-  
 
- final Stream<QuerySnapshot> _usersStream =
+  final Stream<QuerySnapshot> _usersStream =
       fb.db.collection('eventsListed').snapshots();
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _usersStream,
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return const Text('Something went wrong');
-        }
+        stream: _usersStream,
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return const Text('Something went wrong');
+          }
 
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Text("Loading");
-        }
-    //sets the bounds for the calendar at 6 months before and after the current date
-    final calendarRoot = DateTime.now();
-    final calendarStartDate =
-        DateTime(calendarRoot.year, calendarRoot.month - 6, calendarRoot.day);
-    final calendarEndDate =
-        DateTime(calendarRoot.year, calendarRoot.month + 6, calendarRoot.day);
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Text("Loading");
+          }
+          //sets the bounds for the calendar at 6 months before and after the current date
+          final calendarRoot = DateTime.now();
+          final calendarStartDate = DateTime(
+              calendarRoot.year, calendarRoot.month - 6, calendarRoot.day);
+          final calendarEndDate = DateTime(
+              calendarRoot.year, calendarRoot.month + 6, calendarRoot.day);
 
-    return Column(
-      children: [
-        TableCalendar(
-          firstDay: calendarStartDate,
-          lastDay: calendarEndDate,
-          focusedDay: _focusedDay,
-          calendarFormat: _calendarFormat,
-          selectedDayPredicate: (day) {
-            // Use `selectedDayPredicate` to determine which day is currently selected.
-            // If this returns true, then `day` will be marked as selected.
+          return Column(
+            children: [
+              TableCalendar(
+                firstDay: calendarStartDate,
+                lastDay: calendarEndDate,
+                focusedDay: _focusedDay,
+                calendarFormat: _calendarFormat,
+                selectedDayPredicate: (day) {
+                  // Use `selectedDayPredicate` to determine which day is currently selected.
+                  // If this returns true, then `day` will be marked as selected.
 
-            // Using `isSameDay` is recommended to disregard
-            // the time-part of compared DateTime objects.
-            return isSameDay(_selectedDay, day);
-          },
-          onDaySelected: (selectedDay, focusedDay) {
-            if (!isSameDay(_selectedDay, selectedDay)) {
-              // Call `setState()` when updating the selected day
-              setState(() {
-                _selectedDay = selectedDay;
-                _focusedDay = focusedDay;
-              });
-            }
-          },
-          onFormatChanged: (format) {
-            if (_calendarFormat != format) {
-              // Call `setState()` when updating calendar format
-              setState(() {
-                _calendarFormat = format;
-              });
-            }
-          },
-          onPageChanged: (focusedDay) {
-            // No need to call `setState()` here
-            _focusedDay = focusedDay;
-          },
-        ),
-        const SizedBox(height: 8.0),
-        Expanded(
-          child:
-              ListBody(
-                  children: snapshot.data!.docs
-                      .map((DocumentSnapshot document) {
-                        Map<String, dynamic> data =
-                            document.data()! as Map<String, dynamic>;
-                        return Card(
-                            child: ListTile(
-                          title: Text(data["title"]),
-                          subtitle: Text(data["date"]),
-                          onTap: () {
-                            AlertDialog alert = AlertDialog(
-                              title: Text(data["title"]),
-                              insetPadding: EdgeInsets.symmetric(
-                                  vertical: 200, horizontal: 50),
-                              content: Column(children: [Text(data["desc"])]),
-                            );
+                  // Using `isSameDay` is recommended to disregard
+                  // the time-part of compared DateTime objects.
+                  return isSameDay(_selectedDay, day);
+                },
+                onDaySelected: (selectedDay, focusedDay) {
+                  if (!isSameDay(_selectedDay, selectedDay)) {
+                    // Call `setState()` when updating the selected day
+                    setState(() {
+                      _selectedDay = selectedDay;
+                      _focusedDay = focusedDay;
+                    });
+                  }
+                },
+                onFormatChanged: (format) {
+                  if (_calendarFormat != format) {
+                    // Call `setState()` when updating calendar format
+                    setState(() {
+                      _calendarFormat = format;
+                    });
+                  }
+                },
+                onPageChanged: (focusedDay) {
+                  // No need to call `setState()` here
+                  _focusedDay = focusedDay;
+                },
+              ),
+              const SizedBox(height: 8.0),
+              Expanded(
+                child: ListBody(
+                    children: snapshot.data!.docs
+                        .map((DocumentSnapshot document) {
+                          Map<String, dynamic> data =
+                              document.data()! as Map<String, dynamic>;
+                          return Card(
+                              child: ListTile(
+                            title: Text(data["title"]),
+                            subtitle: Text(data["date"]),
+                            onTap: () {
+                              AlertDialog alert = AlertDialog(
+                                title: Text(data["title"]),
+                                insetPadding: EdgeInsets.symmetric(
+                                    vertical: 200, horizontal: 50),
+                                content: Column(children: [Text(data["desc"])]),
+                              );
 
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return alert;
-                              },
-                            );
-                          },
-                        ));
-                      })
-                      .toList()
-                      .cast()),
-              //),
-        ),
-      ],
-    );
-  });
-}}
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return alert;
+                                },
+                              );
+                            },
+                          ));
+                        })
+                        .toList()
+                        .cast()),
+                //),
+              ),
+            ],
+          );
+        });
+  }
+}
 
 //creates calendar page in app
 class CalendarScreen extends StatefulWidget {
