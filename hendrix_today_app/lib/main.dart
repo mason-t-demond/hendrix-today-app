@@ -106,7 +106,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
         direction: Axis.horizontal, //use vertical to show  on vertical axis
         children: <Widget>[
           Container(
-              key: Key('CalendarButton'),
+              key: const Key('CalendarButton'),
               margin: EdgeInsets.all(10),
               child: FloatingActionButton(
                 onPressed: () {
@@ -118,7 +118,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
               )), //button first
 
           Container(
-              key: Key('HomeButton'),
+              key: const Key('HomeButton'),
               margin: EdgeInsets.all(10),
               child: FloatingActionButton(
                 onPressed: () {
@@ -130,7 +130,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
               )), // button second
 
           Container(
-              key: Key('SearchButton'),
+              key: const Key('SearchButton'),
               margin: EdgeInsets.all(10),
               child: FloatingActionButton(
                 onPressed: () {
@@ -142,7 +142,7 @@ class _ScreenContainerState extends State<ScreenContainer> {
                 child: Icon(Icons.search),
               )), // button third
           Container(
-            key: Key('MenuButton'),
+            key: const Key('MenuButton'),
             margin: EdgeInsets.all(10),
             child: FloatingActionButton(
                 onPressed: _launchURLApp,
