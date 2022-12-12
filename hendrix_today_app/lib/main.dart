@@ -38,7 +38,8 @@ class _ScreenContainerState extends State<ScreenContainer> {
   Color webOrange = const Color.fromARGB(255, 202, 81, 39);
   int selectedIndex = 0;
   List<Widget> pages = []; //contains each page
-  List<String> titles = []; //contains the title of each page
+  List<String> titles = [];
+  List<String> menuLinks = []; //contains the title of each page
 
   @override
   void initState() {
@@ -49,15 +50,25 @@ class _ScreenContainerState extends State<ScreenContainer> {
       const SearchScreen()
     ]; //Stores Pages for BottomNav
     titles = ["Hendrix Today", "HDX Calendar", "Search"];
+    menuLinks = [
+      "https://www.hendrix.edu/diningservices/default.aspx?id=1003",
+      "https://www.hendrix.edu/diningservices/default.aspx?id=1004",
+      "https://www.hendrix.edu/diningservices/default.aspx?id=1005",
+      "https://www.hendrix.edu/diningservices/default.aspx?id=1006",
+      "https://www.hendrix.edu/diningservices/default.aspx?id=1007",
+      "https://www.hendrix.edu/diningservices/default.aspx?id=1008",
+      "https://www.hendrix.edu/diningservices/default.aspx?id=1002"
+    ];
   }
 
   _launchURLApp() async {
-    Uri menuLink = Uri.parse(
-        'https://www.hendrix.edu/diningservices/default.aspx?id=1009');
-    if (await canLaunchUrl(menuLink)) {
-      await launchUrl(menuLink);
+    int dayOfWeek = DateTime.now().weekday;
+    String menuLink = menuLinks[dayOfWeek - 1];
+    Uri menuUrl = Uri.parse(menuLink);
+    if (await canLaunchUrl(menuUrl)) {
+      await launchUrl(menuUrl);
     } else {
-      throw 'Could not launch $menuLink';
+      throw 'Could not launch $menuUrl';
     }
   }
 
